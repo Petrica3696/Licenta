@@ -2,22 +2,19 @@ import React from 'react';
 import './products-sidebar.scss';
 import { Nav, NavItem } from 'react-bootstrap';
 
-function handleSelect(selectedKey) {
-  alert(`selected ${selectedKey}`);
-}
 
 export class Sidebar extends React.Component {
 	render() {
 		return (
-			<Nav bsStyle="pills" stacked activeKey={1} onSelect={handleSelect}>
-				<NavItem eventKey={1} href="/home">
-					NavItem 1 content
+			<Nav bsStyle="pills" stacked activeKey={1}>
+				<NavItem eventKey={1} href="/products">
+					All products
 				</NavItem>
-				<NavItem eventKey={2} title="Item">
-					NavItem 2 content
+				<NavItem eventKey={2} href="/my-products-card">
+					My products
 				</NavItem>
-				<NavItem eventKey={3} disabled>
-					NavItem 3 content
+				<NavItem eventKey={3} href="/add-product">
+					Add product
 				</NavItem>
 			</Nav>
 		)

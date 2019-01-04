@@ -1,8 +1,13 @@
-.panelHeader {
-  font-size: 20px;
-  text-align: center;
-}
-.panelBody {
-  height: 300px;
-  background-color: #e5e2d0;
+.panel {
+  margin: 180px 500px 1000px;
+
+  .panelHeader {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .panelBody {
+    height: 200px;
+    background-color: #e5e2d0;
+  }
 }

@@ -7,8 +7,14 @@ class Home extends Component {
   render() {
     return (
       <div className="home">
-        <Slideshow />
-        <Preferences />
+      
+        <div className="slideshow">
+          <Slideshow />
+        </div>
+
+        <div className="preferences">
+          <Preferences />
+        </div>
         
       </div>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
-import './products-card.scss';
-import img from '../../../images/img.jpeg';
+import './my-products-card.scss';
+import img from '../../../../images/img.jpeg';
 import { Button, Col, Thumbnail } from 'react-bootstrap';
 
-class Card extends React.Component {
+class MyProductCard extends React.Component {
   render() {
     return (
       <Col xs={6} md={4}>
@@ -15,9 +15,9 @@ class Card extends React.Component {
               <p className="current-bid-card">Current bid: 1$</p>
             </div>
             <p>
-              <Button bsStyle="primary" href="/card-info">See details</Button>
+              <Button bsStyle="primary" href="/card-info">Edit</Button>
               &nbsp;
-              <Button bsStyle="default">Add to watch list</Button>
+              <Button bsStyle="default">Delete</Button>
             </p>
           </div>
         </Thumbnail>
@@ -25,4 +25,4 @@ class Card extends React.Component {
     )
   }
 }
-export default Card;
+export default MyProductCard;
