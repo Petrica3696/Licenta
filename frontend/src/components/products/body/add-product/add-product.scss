@@ -1,5 +1,18 @@
-.add-product {
-  padding-left: 500px;
-  padding-right: 500px;
-  padding-top: 100px;
+
+.products-informations {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  margin: 20px;
+  .sidebar {
+    width: 20%;
+    border: 2px solid #e5e2d0;
+  }
+  
+  .add-product {
+    padding-left: 200px;
+    padding-right: 500px;
+    width: 80%;
+  }
+  
 }

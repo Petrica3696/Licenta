@@ -24,12 +24,14 @@ namespace BusinessLogic.Write.Implementations
             var newProduct = new Product
             {
                 Id = Guid.NewGuid(),
-                UserId = author.Id,
-                Name = product.Name,
                 CategoryId = product.CategoryId,
+                Username = author.Username,
+                WinnerId = product.WinnerId,
+                Name = product.Name,
                 Description = product.Description,
                 StartPrice = product.StartPrice,
-                LowLimitPrice = product.LowLimitPrice,
+                FinalPrice = product.FinalPrice,
+                Deadline = product.Deadline,
                 IsSold = product.IsSold
             };
 
@@ -60,11 +62,11 @@ namespace BusinessLogic.Write.Implementations
             {
                 Id = productToUpdate.Id,
                 Name = (product.Name != null) ? product.Name : productToUpdate.Name,
-                UserId = productToUpdate.UserId,
+                Username = productToUpdate.Username,
                 CategoryId = productToUpdate.CategoryId,
                 Description = (product.Description != null) ? product.Description : productToUpdate.Description,
                 StartPrice = (product.StartPrice != 0) ? product.StartPrice : productToUpdate.StartPrice,
-                LowLimitPrice = (product.LowLimitPrice != 0) ? product.LowLimitPrice : productToUpdate.LowLimitPrice,
+                FinalPrice = (product.FinalPrice != 0) ? product.FinalPrice : productToUpdate.FinalPrice,
                 IsSold = (product.IsSold != true) ? true : false
             };
 

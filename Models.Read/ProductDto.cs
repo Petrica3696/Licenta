@@ -6,9 +6,11 @@ namespace Models.Read
 {
     public class ProductDto : BaseModel
     {
-        public Guid CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
-        public Guid UserId { get; set; }
+        public string WinnerId { get; set; }
+
+        public string Username { get; set; }
 
         public string Name { get; set; }
 
@@ -16,7 +18,9 @@ namespace Models.Read
 
         public float StartPrice { get; set; }
 
-        public float LowLimitPrice { get; set; }
+        public float FinalPrice { get; set; }
+
+        public DateTime Deadline { get; set; }
 
         public bool IsSold { get; set; }
     }

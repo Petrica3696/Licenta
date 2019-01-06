@@ -19,12 +19,36 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
             return queryBuilder.BuildQuery();
         }
 
-        public string BuildGetByCategoryIdQuery(Guid id)
+        public string BuildGetProduct(Guid id)
         {
             var queryBuilder = new SelectQueryBuilder();
 
             queryBuilder.SelectFromTable("Products");
-            queryBuilder.AddWhere("Id", Comparison.Equals, id);
+            queryBuilder.AddWhere("Id", Comparison.Equals, id.ToString());
+            queryBuilder.BuildQuery();
+
+
+            return queryBuilder.BuildQuery();
+        }
+
+        public string BuildGetByCategoryIdQuery(string id)
+        {
+            var queryBuilder = new SelectQueryBuilder();
+
+            queryBuilder.SelectFromTable("Products");
+            queryBuilder.AddWhere("CategoryId", Comparison.Equals, id);
+            queryBuilder.BuildQuery();
+
+
+            return queryBuilder.BuildQuery();
+        }
+
+        public string BuildGetByUsernameQuery(string username)
+        {
+            var queryBuilder = new SelectQueryBuilder();
+
+            queryBuilder.SelectFromTable("Products");
+            queryBuilder.AddWhere("Username", Comparison.Equals, username );
             queryBuilder.BuildQuery();
 
             return queryBuilder.BuildQuery();

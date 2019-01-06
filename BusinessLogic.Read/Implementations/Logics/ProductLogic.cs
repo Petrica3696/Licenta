@@ -26,10 +26,22 @@ namespace BusinessLogic.Read.Implementations.Logics
             return _repository.ExecuteQuery<ProductDto>(query);
         }
 
-        public ProductDto GetByCategoryId(Guid id)
+        public ProductDto GetProduct(Guid id)
+        {
+            var query = _queryBuilder.BuildGetProduct(id);
+            return _repository.ExecuteQueryFirstOrDefault<ProductDto>(query);
+        }
+
+        public IEnumerable<ProductDto> GetByCategoryId(string id)
         {
             var query = _queryBuilder.BuildGetByCategoryIdQuery(id);
-            return _repository.ExecuteQueryFirstOrDefault<ProductDto>(query);
+            return _repository.ExecuteQuery<ProductDto>(query);
+        }
+
+        public IEnumerable<ProductDto> GetByUsername(string username)
+        {
+            var query = _queryBuilder.BuildGetByUsernameQuery(username);
+            return _repository.ExecuteQuery<ProductDto>(query);
         }
     }
 }

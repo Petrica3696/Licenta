@@ -22,20 +22,34 @@ namespace Service.Read.Controllers
 
         // GET api/products
         [HttpGet]
-        public IEnumerable<ProductDto> Get()
+        public IEnumerable<ProductDto> GetAll()
         {
             return _productLogic.GetAll();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetByCategoryId([FromRoute] Guid id)
+        public ActionResult<ProductDto> GetProduct([FromRoute] Guid id)
         {
-            var response = _productLogic.GetByCategoryId(id);
+            var response = _productLogic.GetProduct(id);
             if (response == null)
             {
                 return NotFound();
             }
             return Ok(response);
+        }
+
+        [HttpGet("{username}")]
+        public IEnumerable<ProductDto> GetByUsername([FromRoute] string username)
+        {
+            var response = _productLogic.GetByUsername(username);
+            return response;
+        }
+
+        [HttpGet("{categoryId}")]
+        public IEnumerable<ProductDto> GetByCategoryId([FromRoute] string categoryId)
+        {
+            var response = _productLogic.GetByCategoryId(categoryId);
+            return response;
         }
     }
 }

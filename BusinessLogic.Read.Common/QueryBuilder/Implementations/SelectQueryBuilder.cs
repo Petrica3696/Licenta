@@ -609,6 +609,7 @@ namespace BusinessLogic.Read.Common.QueryBuilder.Implementations
                 return command;
             }
 
+
             return query.ToString();
         }
     }

@@ -8,6 +8,10 @@ namespace BusinessLogic.Read.Abstractions.QueryBuilders
     {
         string BuildGetQuery();
 
-        string BuildGetByCategoryIdQuery(Guid id);
+        string BuildGetProduct(Guid id);
+
+        string BuildGetByCategoryIdQuery(string id);
+
+        string BuildGetByUsernameQuery(string username);
     }
 }

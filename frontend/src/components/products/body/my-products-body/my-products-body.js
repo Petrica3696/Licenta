@@ -1,29 +1,38 @@
 import React from 'react';
-import './products-body.scss';
+import './my-products-body.scss';
 import MyProductsCard from '../../card/my-products-card/my-products-card';
+import { Sidebar } from '../../sidebar/products-sidebar';
 
 import { Button, Col, Thumbnail, Grid, Row } from 'react-bootstrap';
 
-export class Body extends React.Component {
+class MyProductsBody extends React.Component {
 	render() {
 		return (
-			<Grid>
-          <Row>
-            <MyProductsCard />
-            <MyProductsCard />
-            <MyProductsCard />           
-          </Row>
-          <Row>
-            <MyProductsCard />
-            <MyProductsCard />
-            <MyProductsCard />  
-          </Row>
-          <Row>
-            <MyProductsCard />
-            <MyProductsCard />
-            <MyProductsCard />  
-          </Row>
-        </Grid>
+      <div className="products-informations">
+        <div className="sidebar">
+            <Sidebar />
+          </div>
+        <div className="my-products">
+          <Grid>
+              <Row>
+                <MyProductsCard />
+                <MyProductsCard />
+                <MyProductsCard />           
+              </Row>
+              <Row>
+                <MyProductsCard />
+                <MyProductsCard />
+                <MyProductsCard />  
+              </Row>
+              <Row>
+                <MyProductsCard />
+                <MyProductsCard />
+                <MyProductsCard />  
+              </Row>
+            </Grid>
+          </div>
+        </div>
 		)
 	}
 }
+export default MyProductsBody;
