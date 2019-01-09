@@ -38,18 +38,18 @@ namespace Service.Read.Controllers
             return Ok(response);
         }
 
-        [HttpGet("{username}")]
-        public IEnumerable<ProductDto> GetByUsername([FromRoute] string username)
-        {
-            var response = _productLogic.GetByUsername(username);
-            return response;
-        }
+        //[HttpGet("{username}")]
+        //public IEnumerable<ProductDto> GetByUsername([FromRoute] string username)
+        //{
+        //    var response = _productLogic.GetByUsername(username);
+        //    return response;
+        //}
 
-        [HttpGet("{categoryId}")]
-        public IEnumerable<ProductDto> GetByCategoryId([FromRoute] string categoryId)
-        {
-            var response = _productLogic.GetByCategoryId(categoryId);
-            return response;
-        }
+        //[HttpGet("{categoryId}")]
+        //public IEnumerable<ProductDto> GetByCategoryId([FromRoute] string categoryId)
+        //{
+        //    var response = _productLogic.GetByCategoryId(categoryId);
+        //    return response;
+        //}
     }
 }

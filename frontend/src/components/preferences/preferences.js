@@ -9,8 +9,8 @@ export class Preferences extends React.Component {
 	render() {
 		return (
 			<Grid>
-				<Row class = "row">
-					<Col xs={6} md={4} class="col">
+				<Row className = "row">
+					<Col xs={6} md={4} className="col">
 						<Image src={img} circle />
 						<span>Prod1</span>
 					</Col>

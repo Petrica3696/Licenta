@@ -4,6 +4,7 @@ import { Slideshow } from '../components/home-slideshow/home-slideshow';
 import { Preferences } from '../components/preferences/preferences';
 
 class Home extends Component {
+
   render() {
     return (
       <div className="home">

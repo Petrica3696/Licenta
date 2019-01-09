@@ -3,7 +3,7 @@ import './my-products-body.scss';
 import MyProductsCard from '../../card/my-products-card/my-products-card';
 import { Sidebar } from '../../sidebar/products-sidebar';
 
-import { Button, Col, Thumbnail, Grid, Row } from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
 
 class MyProductsBody extends React.Component {
 	render() {

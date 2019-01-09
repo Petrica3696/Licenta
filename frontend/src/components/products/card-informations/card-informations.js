@@ -2,9 +2,24 @@ import React from 'react';
 import './card-informations.scss';
 import img from '../../../images/img.jpeg';
 import { Carousel, FormControl, FormGroup, InputGroup, Button } from 'react-bootstrap';
+import { getProductById } from '../../../api/services/product-services';
 
 class CardInformations extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { myObj: [], id: this.props.match.params.id };
+  }
+
+  componentDidMount() {
+    getProductById(this.state.id, (data) => {
+      this.setState({ myObj: data })
+    });
+  }
+
   render() {
+    console.log("MyObj: ", this.state.myObj);
+    const { name, deadline, description, startPrice } = this.state.myObj;
     return (
       <div className="card-informations">
 
@@ -23,11 +38,11 @@ class CardInformations extends React.Component {
         </div>
 
         <div className="info">
-          <div className="name">Product name</div>
-          <div className="timer">Time left: 00:30 min</div>
+          <div className="name">{name}</div>
+          <div className="timer">Time left: {deadline} </div>
 
           <div className="bid-details">
-            <div class="current-bid">Current bid: 1$</div>
+            <div className="current-bid">Current bid: {startPrice}$</div>
             <div className="place-bid">
               <FormGroup>
                 <InputGroup>
@@ -44,7 +59,7 @@ class CardInformations extends React.Component {
           <div className="description">
             <p className="description-title">Description</p>
             <span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {description}
             </span>
           </div>
 
