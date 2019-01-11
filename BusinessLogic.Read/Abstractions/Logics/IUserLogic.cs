@@ -9,6 +9,8 @@ namespace BusinessLogic.Read.Abstractions.Logics
     {
         IEnumerable<UserDto> GetAll();
 
-        UserDto GetByUsername(string username);
+        UserDto GetByUsernameAndPassword(string username, string password);
+
+        UserDto Authenticate(string username, string password);
     }
 }
