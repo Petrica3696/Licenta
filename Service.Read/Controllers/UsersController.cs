@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BusinessLogic.Read.Abstractions.Logics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Read;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Service.Read.Controllers
 {
-    //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly IUserLogic _userLogic;
@@ -41,7 +36,7 @@ namespace Service.Read.Controllers
         //    return Ok(response);
         //}
 
-        [AllowAnonymous]
+        
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserDto userParam)
         {
@@ -50,6 +45,21 @@ namespace Service.Read.Controllers
             if(user == null)
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("current")]
+        public ActionResult<UserDto> Get()
+        {
+            var currentUserId = HttpContext.User.Identity.Name;
+
+            var user = _userLogic.GetById(currentUserId);
+
+            if (user == null)
+            {
+                return NotFound();
             }
 
             return Ok(user);

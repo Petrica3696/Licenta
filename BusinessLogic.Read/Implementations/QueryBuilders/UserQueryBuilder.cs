@@ -19,6 +19,17 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
             return queryBuilder.BuildQuery();
         }
 
+        public string BuildGetByIdQuery(string id)
+        {
+            var queryBuilder = new SelectQueryBuilder();
+
+            queryBuilder.SelectFromTable("Users");
+            queryBuilder.AddWhere("Id", Comparison.Equals, id);
+            queryBuilder.BuildQuery();
+
+            return queryBuilder.BuildQuery();
+        }
+
         public string BuildGetByUsernameAndPasswordQuery(string username, string password)
         {
             var queryBuilder = new SelectQueryBuilder();

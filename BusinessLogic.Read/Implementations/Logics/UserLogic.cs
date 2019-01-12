@@ -64,6 +64,12 @@ namespace BusinessLogic.Read.Implementations.Logics
             return _repository.ExecuteQuery<UserDto>(query);
         }
 
+        public UserDto GetById(string id)
+        {
+            var query = _queryBuilder.BuildGetByIdQuery(id);
+            return _repository.ExecuteQueryFirstOrDefault<UserDto>(query);
+        }
+
         public UserDto GetByUsernameAndPassword(string username, string password)
         {
             var query = _queryBuilder.BuildGetByUsernameAndPasswordQuery(username, password);
