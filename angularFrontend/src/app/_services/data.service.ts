@@ -5,13 +5,14 @@ import { Product } from '../_models';
 @Injectable({ providedIn: 'root' })
 export class DataService {
 
-  private productSource = new BehaviorSubject(undefined);
-  currentSource = this.productSource.asObservable();
+  //private productSource = new BehaviorSubject(undefined);
+  //currentSource = this.productSource.asObservable();
 
   constructor() { }
 
   changeProduct(product: Product) {
-    this.productSource.next(product)
+    localStorage.setItem('selectedProduct', JSON.stringify(product));
+    //this.productSource.next(product)
   }
 
 }
