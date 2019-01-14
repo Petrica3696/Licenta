@@ -1,7 +1,10 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule }    from '@angular/forms';
+import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
+import { ProductsModule } from './products/products.module';
 
 // used to create fake backend
 //import { fakeBackendProvider } from './_helpers';
@@ -18,8 +21,11 @@ import { NavbarComponent } from './commons/navbar/navbar.component';
     imports: [
         BrowserModule,
         ReactiveFormsModule,
+        FormsModule,
         HttpClientModule,
-        routing
+        routing,
+        MDBBootstrapModule.forRoot(),
+        ProductsModule
     ],
     declarations: [
         AppComponent,
@@ -29,7 +35,7 @@ import { NavbarComponent } from './commons/navbar/navbar.component';
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

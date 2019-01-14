@@ -1,0 +1,29 @@
+<div class="product-details">
+
+  <div class="image-box">
+    <div class="view overlay waves-light" mdbWavesEffect>
+      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+      <a>
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="product-content-informations container">
+
+    <div class="product-name">
+      <h1 *ngIf="product">{{product.name}}</h1>
+    </div>
+
+    <div class="bid-input container">
+      <div class="input-group sm-3">
+        <input type="text" class="form-control" placeholder="bid" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button mdbBtn color="default" outline="true" size="md" class="m-0 px-3 py-2 my-bid-btn" type="button" id="button-addon2"
+            mdbWavesEffect>Button</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
