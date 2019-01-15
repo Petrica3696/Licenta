@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../_services/data.service';
+import { ActivatedRoute } from '@angular/router';
+
+import { ProductService } from '../../_services/product.service';
+
 import { Product } from 'src/app/_models';
 
 @Component({
@@ -9,14 +12,15 @@ import { Product } from 'src/app/_models';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  productId: string;
   product: Product;
 
-  constructor(private dataService: DataService) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    //this.dataService.currentSource.subscribe(product => this.product = product);
-    this.product = JSON.parse(localStorage.getItem('selectedProduct'));
-    console.log("destinatie: ", this.product);
+    this.productId = this.route.snapshot.paramMap.get("id");
+    this.productService.getProductById(this.productId).subscribe(product => {this.product = product; console.log("productDest: ", this.product);});
+    console.log("destinatie: ", this.productId);
   }
 
 }

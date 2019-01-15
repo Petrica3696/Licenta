@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatOptionModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material';
 
 import { ProductsModule } from './products/products.module';
 
@@ -25,7 +28,10 @@ import { NavbarComponent } from './commons/navbar/navbar.component';
         HttpClientModule,
         routing,
         MDBBootstrapModule.forRoot(),
-        ProductsModule
+        ProductsModule,
+        BrowserAnimationsModule,
+        MatOptionModule,
+        MatSelectModule
     ],
     declarations: [
         AppComponent,

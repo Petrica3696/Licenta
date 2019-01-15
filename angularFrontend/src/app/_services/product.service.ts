@@ -8,7 +8,13 @@ import { Observable } from 'rxjs';
 export class ProductService {
     constructor(private http: HttpClient) { }
 
-    getAll() {
+    getAll(): Observable<Product[]> {
         return this.http.get<Product[]>('http://localhost:44800/api/products');
+    }
+    getProductById(id: string): Observable<Product> {
+        return this.http.get<Product>('http://localhost:44800/api/products/' + id);
+    }
+    getAllMyProducts(username: string): Observable<Product[]> {
+        return this.http.get<Product[]>('http://localhost:44800/api/products/my-products/' + username);
     }
 }

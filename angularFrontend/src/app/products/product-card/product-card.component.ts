@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
 
   onSendProduct(product) {
     this.dataService.changeProduct(product);
-    this.router.navigate(['product-details']);
+    //this.router.navigate(['product-details']);
   }
 
 }
