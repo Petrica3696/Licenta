@@ -19,6 +19,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { NavbarComponent } from './commons/navbar/navbar.component';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { NavbarComponent } from './commons/navbar/navbar.component';
         ProductsModule,
         BrowserAnimationsModule,
         MatOptionModule,
-        MatSelectModule
+        MatSelectModule,
+        ToastrModule.forRoot()
     ],
     declarations: [
         AppComponent,

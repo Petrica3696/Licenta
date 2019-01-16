@@ -8,7 +8,7 @@ namespace Models.Write
     {
         public Guid CategoryId { get; set; }
 
-        public Guid WinnerId { get; set; }
+        public Guid? WinnerId { get; set; }
 
         public string Username { get; set; }
 
@@ -18,7 +18,7 @@ namespace Models.Write
 
         public float StartPrice { get; set; }
 
-        public float FinalPrice { get; set; }
+        public float? FinalPrice { get; set; }
 
         public DateTime Deadline { get; set; }
 

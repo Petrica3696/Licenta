@@ -19,20 +19,21 @@ namespace BusinessLogic.Write.Implementations
 
         public void Create(ProductDto product)
         {
-            var author = _repository.GetByFilter<User>(a => a.Username == product.AuthorUsername);
+
+
 
             var newProduct = new Product
             {
                 Id = Guid.NewGuid(),
                 CategoryId = product.CategoryId,
-                Username = author.Username,
-                WinnerId = product.WinnerId,
+                Username = product.Username,
+                WinnerId = null,
                 Name = product.Name,
                 Description = product.Description,
                 StartPrice = product.StartPrice,
-                FinalPrice = product.FinalPrice,
+                FinalPrice = null,
                 Deadline = product.Deadline,
-                IsSold = product.IsSold
+                IsSold = false
             };
 
             _repository.Insert(newProduct);

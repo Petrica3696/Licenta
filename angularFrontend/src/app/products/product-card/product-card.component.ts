@@ -15,12 +15,10 @@ export class ProductCardComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
-    console.log("produse: ", this.product);
   }
 
   onSendProduct(product) {
     this.dataService.changeProduct(product);
-    //this.router.navigate(['product-details']);
   }
 
 }

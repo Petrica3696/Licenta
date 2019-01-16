@@ -17,7 +17,7 @@ export class MyProductsComponent implements OnInit {
 
   ngOnInit() {
     this.username = JSON.parse(localStorage.getItem("currentUser")).username;
-    this.productService.getAllMyProducts(this.username).subscribe(products => {this.myProducts = products; console.log(this.myProducts)});
+    this.productService.getAllMyProducts(this.username).subscribe(products => this.myProducts = products);
   }
 
 }
