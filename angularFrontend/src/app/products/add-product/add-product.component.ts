@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
+import { ToastrManager } from 'ng6-toastr-notifications';
 
 import { CategoryService } from '../../_services/categories.service';
 import { ProductService } from '../../_services/product.service';
 
 import { Category } from 'src/app/_models/category';
 import { ProductWrite } from '../../_models/productWrite';
-import { FormControl, Validators } from '@angular/forms';
 import { User } from 'src/app/_models';
 
 

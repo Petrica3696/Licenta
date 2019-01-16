@@ -9,6 +9,6 @@ namespace BusinessLogic.Read.Abstractions.Logics
     {
         IEnumerable<CategoryDto> GetAll();
 
-        CategoryDto GetByCategoryName(string categoryName);
+        CategoryDto GetByCategoryId(Guid id);
     }
 }

@@ -3,6 +3,7 @@ import { first } from 'rxjs/operators';
 
 import { Product } from '../../_models/product';
 import { ProductService } from '../../_services/product.service';
+import { User } from 'src/app/_models';
 
 @Component({
   selector: 'app-all-products',
@@ -11,6 +12,7 @@ import { ProductService } from '../../_services/product.service';
 })
 export class AllProductsComponent implements OnInit {
   products: Product[] = [];
+  user: User = JSON.parse(localStorage.getItem("currentUser"));
 
   constructor(private productService: ProductService) { }
 

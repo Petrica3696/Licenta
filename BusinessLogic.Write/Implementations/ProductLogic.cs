@@ -50,7 +50,7 @@ namespace BusinessLogic.Write.Implementations
             return _repository.GetByFilter<Product>((p) => p.Name == name);
         }
 
-        public void Update(Guid id, ProductDto product)
+        public void Update(Guid id, UpdateProductDto product)
         {
             var productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
 

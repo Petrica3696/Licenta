@@ -18,6 +18,8 @@ import { MatNativeDateModule  } from '@angular/material';
 import { DataService } from '../_services/data.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { MyProductCardComponent } from './my-product-card/my-product-card.component';
+import { MyProductDetailsComponent } from './my-product-details/my-product-details.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AddProductComponent } from './add-product/add-product.component';
     ProductCardComponent,
     ProductDetailsComponent,
     MyProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    MyProductCardComponent,
+    MyProductDetailsComponent
   ],
   imports: [
     CommonModule,

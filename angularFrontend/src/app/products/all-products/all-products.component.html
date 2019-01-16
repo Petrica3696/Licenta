@@ -17,7 +17,12 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4" *ngFor="let product of products; let i = index">
-          <app-product-card [product]="product"></app-product-card>
+          <div *ngIf="user.username == product.username; else showAppProductCard">
+            <app-my-product-card [product]="product"></app-my-product-card>
+          </div>
+          <ng-template #showAppProductCard>
+              <app-product-card [product]="product"></app-product-card>
+          </ng-template>
         </div>
       </div>
 

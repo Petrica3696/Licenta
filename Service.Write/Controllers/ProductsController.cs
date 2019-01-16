@@ -20,9 +20,17 @@ namespace Service.Write.Controllers
             this._productLogic = productLogic;
         }
 
+        [HttpPost]
         public IActionResult Create([FromBody] ProductDto productDto)
         {
             _productLogic.Create(productDto);
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update([FromRoute] Guid id, [FromBody] UpdateProductDto productDto)
+        {
+            _productLogic.Update(id, productDto);
             return NoContent();
         }
     }
