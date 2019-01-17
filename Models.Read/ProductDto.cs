@@ -16,9 +16,9 @@ namespace Models.Read
 
         public string Description { get; set; }
 
-        public float StartPrice { get; set; }
+        public double StartPrice { get; set; }
 
-        public float FinalPrice { get; set; }
+        public double FinalPrice { get; set; }
 
         public DateTime Deadline { get; set; }
 

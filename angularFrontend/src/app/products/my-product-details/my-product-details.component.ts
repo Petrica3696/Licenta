@@ -65,12 +65,11 @@ export class MyProductDetailsComponent implements OnInit {
   }
 
   isAnyFieldChanged() {
-    if((this.inputCategory !== null) 
-    || (this.inputName !== null && this.inputName.trim() !== '') 
-    || (this.inputPrice != null)
-    || (this.inputDate != null)
-    || (this.inputDescription != null && this.inputDescription.trim() !== '') ) 
-    {
+    if ((this.inputCategory !== null)
+      || (this.inputName !== null && this.inputName.trim() !== '')
+      || (this.inputPrice != null)
+      || (this.inputDate != null)
+      || (this.inputDescription != null && this.inputDescription.trim() !== '')) {
       this.buttonValue = false;
     }
     else {
@@ -84,17 +83,18 @@ export class MyProductDetailsComponent implements OnInit {
         this.newProduct.categoryId = category.id;
       }
     });
-    this.newProduct.name = this.inputName;
-    this.newProduct.description = this.inputDescription;
-    this.newProduct.startPrice = this.inputPrice;
-    this.newProduct.deadline = this.inputDate;
+    if (this.newProduct.categoryId == null) { this.newProduct.categoryId = this.product.categoryId };
+    this.inputName ? this.newProduct.name = this.inputName : this.newProduct.name = this.product.name;
+    this.inputDescription ? this.newProduct.description = this.inputDescription : this.newProduct.description = this.product.description;
+    (this.inputPrice && this.inputPrice > this.product.startPrice) ? this.newProduct.startPrice = this.inputPrice : this.newProduct.startPrice = this.product.startPrice;
+    this.inputDate ? this.newProduct.deadline = this.inputDate : this.newProduct.deadline = this.product.deadline;
 
-    // this.productService.addProduct(this.newProduct).then(result => {
-    //   this.toastr.successToastr('', "The product was successfuly added!");
-    //   this.router.navigate(["my-products"]);
-    // }).catch(err => {
-    //   this.toastr.errorToastr('', "There was an issue when adding product. Please try again");
-    // });
+    this.productService.updateProduct(this.productId, this.newProduct).then(result => {
+      this.toastr.successToastr('', "The product was successfuly edited!");
+      this.router.navigate(["my-products"]);
+    }).catch(err => {
+      this.toastr.errorToastr('', "There was an issue when adding product. Please try again");
+    });
   }
 
 }

@@ -44,7 +44,8 @@ import { MyProductDetailsComponent } from './my-product-details/my-product-detai
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
+    MatButtonModule,
+    Timer
   ],
   providers: [
     DataService,

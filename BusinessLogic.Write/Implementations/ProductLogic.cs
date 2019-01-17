@@ -52,26 +52,21 @@ namespace BusinessLogic.Write.Implementations
 
         public void Update(Guid id, UpdateProductDto product)
         {
-            var productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
+            Product productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
 
             if (productToUpdate == null)
             {
                 return;
             }
 
-            var updatedProduct = new Product
-            {
-                Id = productToUpdate.Id,
-                Name = (product.Name != null) ? product.Name : productToUpdate.Name,
-                Username = productToUpdate.Username,
-                CategoryId = productToUpdate.CategoryId,
-                Description = (product.Description != null) ? product.Description : productToUpdate.Description,
-                StartPrice = (product.StartPrice != 0) ? product.StartPrice : productToUpdate.StartPrice,
-                FinalPrice = (product.FinalPrice != 0) ? product.FinalPrice : productToUpdate.FinalPrice,
-                IsSold = (product.IsSold != true) ? true : false
-            };
+            if (product.CategoryId != null) { productToUpdate.CategoryId = product.CategoryId; }
+            if (product.Name != null) { productToUpdate.Name = product.Name; }
+            if (product.Description != null) { productToUpdate.Description = product.Description; }
+            if (product.StartPrice != 0 && productToUpdate.FinalPrice == null) { productToUpdate.StartPrice = product.StartPrice; }
+            if(product.Deadline > DateTime.Now) { productToUpdate.Deadline = product.Deadline; }
 
-            _repository.Update(updatedProduct);
+
+            _repository.Update(productToUpdate);
             _repository.Save();
         }
     }

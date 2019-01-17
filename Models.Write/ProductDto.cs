@@ -6,7 +6,7 @@ namespace Models.Write
 {
     public class ProductDto : BaseDto
     {
-        public Guid CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         public Guid? WinnerId { get; set; }
 
@@ -16,9 +16,9 @@ namespace Models.Write
 
         public string Description { get; set; }
 
-        public float StartPrice { get; set; }
+        public double StartPrice { get; set; }
 
-        public float? FinalPrice { get; set; }
+        public double? FinalPrice { get; set; }
 
         public DateTime Deadline { get; set; }
 
