@@ -14,8 +14,20 @@
     background-color: azure;
     display: block;
 
+    .product-name {
+      padding-top: 20px;
+    }
+
+    .product-deadline {
+      margin-top: 50px;
+    }
+
     .bid-input {
-      display: flex;
+      padding-top: 20px;
+
+      .product-start-price {
+        display: flex;
+      }
       .input-group-append {
         display: block;
         .my-bid-btn {

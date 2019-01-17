@@ -14,6 +14,8 @@ namespace BusinessLogic.Write.Abstractions
 
         void Update(Guid id, UpdateProductDto product);
 
+        void UpdateBid(Guid id, UpdateBid product);
+
         void Delete(Guid id);
     }
 }

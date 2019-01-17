@@ -15,18 +15,27 @@
       <h1>{{product.name}}</h1>
     </div>
 
-    <div class="product.deadline">
-      {{product.deadline}}
+    <div class="product-deadline">
+      <h5>Countdown</h5>
+      <countdown-timer [end]="product.deadline"></countdown-timer>
     </div>
 
-    <div class="bid-input container">
-      <div class="input-group sm-3">
-        <input type="text" class="form-control" placeholder="bid" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <div class="input-group-append">
-          <button mdbBtn color="default" outline="true" size="md" class="m-0 px-3 py-2 my-bid-btn" type="button" id="button-addon2"
-            mdbWavesEffect>Button</button>
-        </div>
+
+    <div class="bid-input">
+      <h5>Bid now</h5>
+        <mat-form-field class="example-full-width">
+          <input [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)" placeholder="{{product.finalPrice}}" matInput type="number">
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="buttonToggle" (click)="onSubmit()">Place bid</button>
+      <div class="product-start-price">
+        <p>Start Price: </p>
+        {{product.startPrice}}
       </div>
+    </div>
+
+    <div>
+      <h5>Description</h5>
+      {{product.description}}
     </div>
 
   </div>

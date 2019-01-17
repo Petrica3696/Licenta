@@ -33,5 +33,12 @@ namespace Service.Write.Controllers
             _productLogic.Update(id, productDto);
             return NoContent();
         }
+
+        [HttpPut("update-bid/{id}")]
+        public IActionResult UpdateBid([FromRoute] Guid id, [FromBody] UpdateBid productDto)
+        {
+            _productLogic.UpdateBid(id, productDto);
+            return NoContent();
+        }
     }
 }

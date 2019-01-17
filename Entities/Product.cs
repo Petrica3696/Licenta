@@ -8,7 +8,7 @@ namespace Entities
     {
         public string CategoryId { get; set; }
 
-        public Guid? WinnerId { get; set; }
+        public string WinnerId { get; set; }
 
         public string Username { get; set; }
 

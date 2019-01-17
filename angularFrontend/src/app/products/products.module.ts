@@ -20,6 +20,7 @@ import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { MyProductCardComponent } from './my-product-card/my-product-card.component';
 import { MyProductDetailsComponent } from './my-product-details/my-product-details.component';
+import { CountdownTimerModule } from 'ngx-countdown-timer';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { MyProductDetailsComponent } from './my-product-details/my-product-detai
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    Timer
+    CountdownTimerModule.forRoot()
   ],
   providers: [
     DataService,

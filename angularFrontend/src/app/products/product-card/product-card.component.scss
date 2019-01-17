@@ -12,13 +12,18 @@
   margin
   :5px;
 }
-.white-text {
-  margin-right: 3rem;
-  
-  &.quick-bid {
-    border: 1px solid blue;
-    padding:5px;
-    background-color: black;
-    border-radius: 8px;
+
+.bid-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .white-text {
+    //margin-right: 10px;
+    font-size: 18px;
+    //padding-top: 5px;
+  }
+  .button-box{
+    //padding-top:10px;
   }
 }

@@ -69,5 +69,20 @@ namespace BusinessLogic.Write.Implementations
             _repository.Update(productToUpdate);
             _repository.Save();
         }
+        public void UpdateBid(Guid id, UpdateBid product)
+        {
+            Product productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
+
+            if (productToUpdate == null)
+            {
+                return;
+            }
+
+            productToUpdate.FinalPrice = product.FinalPrice;
+            productToUpdate.WinnerId = product.WinnerId;
+
+            _repository.Update(productToUpdate);
+            _repository.Save();
+        }
     }
 }

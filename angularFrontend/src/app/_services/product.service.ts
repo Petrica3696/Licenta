@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Product, ProductEdit } from '../_models';
 import { Observable } from 'rxjs';
 import { ProductWrite } from '../_models/productWrite';
+import { ProductBid } from '../_models/productBid';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -25,5 +26,8 @@ export class ProductService {
 
     async updateProduct(id: string, product: ProductEdit): Promise<ProductEdit> {
         return this.http.put<ProductEdit>('http://localhost:4900/api/products/' + id, product).toPromise<ProductEdit>();
+    }
+    async bidProduct(id: string, product: ProductBid): Promise<ProductBid> {
+        return this.http.put<ProductBid>('http://localhost:4900/api/products/update-bid/' + id, product).toPromise<ProductBid>();
     }
 }
