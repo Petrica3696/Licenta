@@ -1,0 +1,42 @@
+<div class="product-details" *ngIf="product">
+
+  <div class="image-box">
+    <div class="view overlay waves-light" mdbWavesEffect>
+      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+      <a>
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="product-content-informations container">
+
+    <div class="product-name">
+      <h1>{{product.name}}</h1>
+    </div>
+
+    <div class="product-deadline">
+      <h5>Countdown</h5>
+      <countdown-timer [end]="product.deadline"></countdown-timer>
+    </div>
+
+
+    <div class="bid-input">
+      <h5>Bid now</h5>
+        <mat-form-field class="example-full-width">
+          <input [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)" placeholder="{{product.finalPrice}}" matInput type="number">
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="buttonToggle" (click)="onSubmit()">Place bid</button>
+      <div class="product-start-price">
+        <p>Start Price: </p>
+        {{product.startPrice}}
+      </div>
+    </div>
+
+    <div>
+      <h5>Description</h5>
+      {{product.description}}
+    </div>
+
+  </div>
+</div>

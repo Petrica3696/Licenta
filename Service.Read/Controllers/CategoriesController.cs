@@ -26,10 +26,11 @@ namespace Service.Read.Controllers
         {
             return _categoryLogic.GetAll();
         }
-        [HttpGet("categories")]
-        public IActionResult GetByCategoryName([FromRoute] string name)
+
+        [HttpGet("{id}")]
+        public IActionResult GetByCategoryId([FromRoute] Guid id)
         {
-            var response = _categoryLogic.GetByCategoryName(name);
+            var response = _categoryLogic.GetByCategoryId(id);
             if (response == null)
             {
                 return NotFound();

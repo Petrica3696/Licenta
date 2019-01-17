@@ -3,7 +3,7 @@ using BusinessLogic.Read.Abstractions.QueryBuilders;
 using DataAccess.Read.Abstractions;
 using Models.Read;
 using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace BusinessLogic.Read.Implementations.Logics
 {
@@ -25,9 +25,9 @@ namespace BusinessLogic.Read.Implementations.Logics
             return _repository.ExecuteQuery<CategoryDto>(query);
         }
 
-        public CategoryDto GetByCategoryName(string categoryName)
+        public CategoryDto GetByCategoryId(Guid id)
         {
-            var query = _queryBuilder.BuildGetByCategoryNameQuery(categoryName);
+            var query = _queryBuilder.BuildGetByCategoryIdQuery(id);
 
             return _repository.ExecuteQueryFirstOrDefault<CategoryDto>(query);
         }

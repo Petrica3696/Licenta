@@ -19,20 +19,21 @@ namespace BusinessLogic.Write.Implementations
 
         public void Create(ProductDto product)
         {
-            var author = _repository.GetByFilter<User>(a => a.Username == product.AuthorUsername);
+
+
 
             var newProduct = new Product
             {
                 Id = Guid.NewGuid(),
                 CategoryId = product.CategoryId,
-                Username = author.Username,
-                WinnerId = product.WinnerId,
+                Username = product.Username,
+                WinnerId = null,
                 Name = product.Name,
                 Description = product.Description,
                 StartPrice = product.StartPrice,
-                FinalPrice = product.FinalPrice,
+                FinalPrice = null,
                 Deadline = product.Deadline,
-                IsSold = product.IsSold
+                IsSold = false
             };
 
             _repository.Insert(newProduct);
@@ -49,28 +50,38 @@ namespace BusinessLogic.Write.Implementations
             return _repository.GetByFilter<Product>((p) => p.Name == name);
         }
 
-        public void Update(Guid id, ProductDto product)
+        public void Update(Guid id, UpdateProductDto product)
         {
-            var productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
+            Product productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
 
             if (productToUpdate == null)
             {
                 return;
             }
 
-            var updatedProduct = new Product
-            {
-                Id = productToUpdate.Id,
-                Name = (product.Name != null) ? product.Name : productToUpdate.Name,
-                Username = productToUpdate.Username,
-                CategoryId = productToUpdate.CategoryId,
-                Description = (product.Description != null) ? product.Description : productToUpdate.Description,
-                StartPrice = (product.StartPrice != 0) ? product.StartPrice : productToUpdate.StartPrice,
-                FinalPrice = (product.FinalPrice != 0) ? product.FinalPrice : productToUpdate.FinalPrice,
-                IsSold = (product.IsSold != true) ? true : false
-            };
+            if (product.CategoryId != null) { productToUpdate.CategoryId = product.CategoryId; }
+            if (product.Name != null) { productToUpdate.Name = product.Name; }
+            if (product.Description != null) { productToUpdate.Description = product.Description; }
+            if (product.StartPrice != 0 && productToUpdate.FinalPrice == null) { productToUpdate.StartPrice = product.StartPrice; }
+            if(product.Deadline > DateTime.Now) { productToUpdate.Deadline = product.Deadline; }
 
-            _repository.Update(updatedProduct);
+
+            _repository.Update(productToUpdate);
+            _repository.Save();
+        }
+        public void UpdateBid(Guid id, UpdateBid product)
+        {
+            Product productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
+
+            if (productToUpdate == null)
+            {
+                return;
+            }
+
+            productToUpdate.FinalPrice = product.FinalPrice;
+            productToUpdate.WinnerId = product.WinnerId;
+
+            _repository.Update(productToUpdate);
             _repository.Save();
         }
     }

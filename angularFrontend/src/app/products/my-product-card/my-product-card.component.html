@@ -1,0 +1,48 @@
+<!--Card-->
+<div class="product-card-box">
+    <mdb-card>
+  
+      <!--Card image-->
+      <div class="view overlay waves-light" mdbWavesEffect>
+        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <!--/.Card image-->
+  
+      <!--Button-->
+      <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect href='my-product-details/{{product.id}}'>
+        <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>Edit product</i>
+      </a>
+  
+      <!--Card content-->
+      <mdb-card-body>
+  
+        <!--Title-->
+        <mdb-card-title>
+          <h4>{{product.name}}</h4>
+        </mdb-card-title>
+  
+        <hr>
+        <!--Text-->
+        <div>
+          <p class="font-medium grey-dark-text mb-0"><i class="fa fa-clock-o pr-1"></i>
+            <countdown-timer  [end]="product.deadline"></countdown-timer>
+          </p>
+          <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+        </div>
+  
+      </mdb-card-body>
+      <!--/.Card content-->
+      <!-- Card footer -->
+      <mdb-card-footer class="mdb-color lighten-3 text-center">
+        <ul class="list-unstyled list-inline font-small mt-3">
+          <li class="list-inline-item pr-2 white-text">
+            Current price: {{product.finalPrice}}</li>
+        </ul>
+      </mdb-card-footer>
+      <!-- Card footer -->
+    </mdb-card>
+    <!--/.Card-->
+  </div>

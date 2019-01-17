@@ -1,0 +1,29 @@
+.product-card-box {
+  padding-top:20px;
+}
+.card-body {
+  padding: 0px;
+}
+.card-footer {
+  padding: 0px;
+  margin-bottom: 10px;
+}
+.card {
+  margin
+  :5px;
+}
+
+.bid-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .white-text {
+    //margin-right: 10px;
+    font-size: 18px;
+    //padding-top: 5px;
+  }
+  .button-box{
+    //padding-top:10px;
+  }
+}

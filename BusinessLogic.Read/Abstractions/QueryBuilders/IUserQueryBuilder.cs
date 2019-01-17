@@ -6,7 +6,9 @@ namespace BusinessLogic.Read.Abstractions.QueryBuilders
 {
     public interface IUserQueryBuilder
     {
-        string BuildGetByUsernameQuery(string username);
+        string BuildGetByIdQuery(string id);
+
+        string BuildGetByUsernameAndPasswordQuery(string username, string password);
 
         string BuildGetQuery();
     }

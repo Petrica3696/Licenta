@@ -1,0 +1,68 @@
+<div class="col-sm-6 offset-sm-3 add-product-box" *ngIf="categories">
+  <div class="alert alert-info">
+    <h2>Add product informations</h2>
+  </div>
+
+  <div class="fields">
+
+    <div>
+      <h5>Select the category: </h5>
+      <mat-form-field>
+        <mat-select [formControl]="dropdownFormControl" [ngModel]="inputCategory" (ngModelChange)="onCategoryChange($event)"
+          required>
+          <mat-option *ngFor="let category of categories" [value]="category.name">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="dropdownFormControl.hasError('required')">Category is <strong>required!</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <h5>Name: </h5>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input [formControl]="inputNameFormControl" matInput [ngModel]="inputName" (ngModelChange)="onNameChange($event)">
+          <mat-error *ngIf="inputNameFormControl.hasError('required')">Name is <strong>required!</strong></mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div>
+      <h5>Start Price: </h5>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input [formControl]="inputPriceFormControl" [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)"
+            matInput>
+          <mat-error *ngIf="inputPriceFormControl.hasError('required')">Price is <strong>required!</strong></mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div>
+      <h5>Pick the deadline: </h5>
+      <mat-form-field>
+        <input [formControl]="inputDateFormControl" matInput [matDatepicker]="picker" placeholder="Choose a date"
+          [ngModel]="inputDate" (ngModelChange)="onDateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="inputDateFormControl.hasError('required')">Deadline is <strong>required!</strong></mat-error>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <h5>Write a description: </h5>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <textarea [formControl]="inputDescriptionFormControl" matInput [ngModel]="inputDescription" (ngModelChange)="onDescriptionChange($event)"></textarea>
+          <mat-error *ngIf="inputDescriptionFormControl.hasError('required')">Description is <strong>required!</strong></mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="buttonValue">Primary</button>
+    </div>
+
+  </div>
+</div>

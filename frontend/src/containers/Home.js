@@ -4,11 +4,15 @@ import { Slideshow } from '../components/home-slideshow/home-slideshow';
 import { Preferences } from '../components/preferences/preferences';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
 
   render() {
     return (
       <div className="home">
-      
+
         <div className="slideshow">
           <Slideshow />
         </div>
@@ -16,7 +20,7 @@ class Home extends Component {
         <div className="preferences">
           <Preferences />
         </div>
-        
+
       </div>
     );
   }

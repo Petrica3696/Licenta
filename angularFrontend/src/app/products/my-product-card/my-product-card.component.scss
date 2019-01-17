@@ -1,0 +1,24 @@
+.product-card-box {
+  padding-top:20px;
+}
+.card-body {
+  padding: 0px;
+}
+.card-footer {
+  padding: 0px;
+  margin-bottom: 10px;
+}
+.card {
+  margin
+  :5px;
+}
+.white-text {
+  margin-right: 3rem;
+  
+  &.quick-bid {
+    border: 1px solid blue;
+    padding:5px;
+    background-color: black;
+    border-radius: 8px;
+  }
+}

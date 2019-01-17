@@ -1,0 +1,26 @@
+<div class="my-products">
+
+  <div class="filter-bar">
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Category
+        <span class="badge badge-primary badge-pill">14</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Price
+        <span class="badge badge-primary badge-pill">2</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="products-list card-deck">
+    <div class="container">
+      <div class="row"> 
+        <div class="col-lg-4" *ngFor="let product of myProducts; let i = index">
+          <app-my-product-card [product]="product"></app-my-product-card>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

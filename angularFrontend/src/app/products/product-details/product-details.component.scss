@@ -1,0 +1,48 @@
+.product-details{
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  padding-top: 20px;
+
+  .image-box {
+    width: 40%;
+    background-color: azure;
+  }
+
+  .product-content-informations {
+    width: 58%;
+    background-color: azure;
+    display: block;
+
+    .product-name {
+      padding-top: 20px;
+    }
+
+    .product-deadline {
+      margin-top: 50px;
+    }
+
+    .bid-input {
+      padding-top: 20px;
+
+      .product-start-price {
+        display: flex;
+      }
+      .input-group-append {
+        display: block;
+        .my-bid-btn {
+         
+        border-radius: 10px; 
+        }
+      }
+  
+      .input-group {
+        width:25%;
+      }
+      .form-control {
+        border-radius: 10px;
+      }
+    }
+
+  }
+}

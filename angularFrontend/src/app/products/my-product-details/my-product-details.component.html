@@ -1,0 +1,60 @@
+<div class="product-details" *ngIf="product && category && categories">
+
+  <div class="image-box">
+    <div class="view overlay waves-light" mdbWavesEffect>
+      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+      <a>
+        <div class="mask rgba-white-slight"></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="product-content-informations container">
+
+    <div>
+      <h5>Select the category: </h5>
+      <mat-form-field>
+        <mat-select [ngModel]="inputCategory" (ngModelChange)="onCategoryChange($event)" placeholder="{{category.name}}">
+          <mat-option *ngFor="let category of categories" [value]="category.name">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <h5>Name: </h5>
+        <mat-form-field class="example-full-width">
+          <input matInput [ngModel]="inputName" (ngModelChange)="onNameChange($event)" placeholder="{{product.name}}">
+        </mat-form-field>
+    </div>
+
+    <div>
+      <h5>Start Price: </h5>
+        <mat-form-field class="example-full-width">
+          <input [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)" placeholder="{{product.startPrice}}" matInput type="number">
+        </mat-form-field>
+    </div>
+
+    <div>
+      <h5>Pick the deadline: </h5>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="{{product.deadline}}" [ngModel]="inputDate" (ngModelChange)="onDateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <h5>Write a description: </h5>
+        <mat-form-field class="example-full-width">
+          <textarea matInput [ngModel]="inputDescription" (ngModelChange)="onDescriptionChange($event)" placeholder="{{product.description}}"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="buttonValue">Primary</button>
+    </div>
+
+  </div>
+</div>

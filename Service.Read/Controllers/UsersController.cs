@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BusinessLogic.Read.Abstractions.Logics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Read;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Service.Read.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/users")]
     public class UsersController : ControllerBase
     {
         private readonly IUserLogic _userLogic;
@@ -23,20 +20,49 @@ namespace Service.Read.Controllers
 
         // GET api/users
         [HttpGet]
-        public IEnumerable<UserDto> Get()
+        public IEnumerable<UserDto> GetAll()
         {
             return _userLogic.GetAll();
         }
 
-        [HttpGet("{username}")]
-        public IActionResult GetByUserName([FromRoute] string username)
+        //[HttpGet("{username}")]
+        //public IActionResult GetByUserName([FromRoute] string username)
+        //{
+        //    var response = _userLogic.GetByUsername(username);
+        //    if( response == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(response);
+        //}
+
+        
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] UserDto userParam)
         {
-            var response = _userLogic.GetByUsername(username);
-            if( response == null)
+            var user = _userLogic.Authenticate(userParam.Username, userParam.Password);
+
+            if(user == null)
+            {
+                return BadRequest(new { message = "Username or password is incorrect" });
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("current")]
+        public ActionResult<UserDto> Get()
+        {
+            var currentUserId = HttpContext.User.Identity.Name;
+
+            var user = _userLogic.GetById(currentUserId);
+
+            if (user == null)
             {
                 return NotFound();
             }
-            return Ok(response);
+
+            return Ok(user);
         }
     }
 }
