@@ -24,9 +24,18 @@ export class MyProductDetailsComponent implements OnInit {
   inputCategory: string = null;
   inputName: string = null;
   inputPrice: number = null;
+  inputHours: number = null;
+  inputMinutes: number = null;
   inputDate: Date = null;
   inputDescription: string = null;
   buttonValue: boolean = true;
+
+  minDate = new Date();
+  enableTimer: boolean = true;
+
+  inputDateFormControl = new FormControl('', [Validators.nullValidator]);
+  inputHoursFormControl = new FormControl({ value: '0', disabled: this.enableTimer }, [Validators.required, Validators.min(0), Validators.max(23)]);
+  inputMinutesFormControl = new FormControl({ value: '0', disabled: this.enableTimer }, [Validators.required, Validators.min(0), Validators.max(59)]);
 
   constructor(private categoryService: CategoryService, private productService: ProductService, private route: ActivatedRoute, public toastr: ToastrManager, private router: Router) { }
 
@@ -37,6 +46,8 @@ export class MyProductDetailsComponent implements OnInit {
       this.categoryService.getCategoryById(this.product.categoryId).subscribe(category => this.category = category);
     });
     this.categoryService.getAll().subscribe(categories => this.categories = categories);
+
+    this.minDate.setDate(this.minDate.getDate());
   }
 
   onCategoryChange(inputCategory) {
@@ -56,7 +67,39 @@ export class MyProductDetailsComponent implements OnInit {
 
   onDateChange(inputDate) {
     this.inputDate = inputDate;
+    if (this.inputDate) {
+      this.inputHoursFormControl.enable();
+      this.inputMinutesFormControl.enable();
+      this.inputHours = 0;
+      this.inputMinutes = 0;
+      console.log("inDate: ", this.inputDate);
+    }
+    else {
+      this.inputHoursFormControl.disable();
+      this.inputMinutesFormControl.disable();
+      this.inputHours = null;
+      this.inputMinutes = null;
+    }
     this.isAnyFieldChanged();
+    console.log(this.inputDate);
+  }
+
+  onHoursChange(inputHours) {
+    this.inputHours = inputHours;
+    if (inputHours) {
+      this.inputDate.setHours(inputHours + 2);
+      this.inputDate.setSeconds(0);
+      console.log(this.inputDate);
+    }
+  }
+  onMinutesChange(inputMinutes) {
+    if (this.inputMinutesFormControl.status == 'VALID') {
+      this.inputMinutes = inputMinutes;
+      if(inputMinutes) {
+        this.inputDate.setMinutes(this.inputMinutes);
+      }
+      console.log(this.inputDate);
+    }
   }
 
   onDescriptionChange(inputDescription) {

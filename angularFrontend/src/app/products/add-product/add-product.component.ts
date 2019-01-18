@@ -21,24 +21,32 @@ export class AddProductComponent implements OnInit {
   categories: Category[] = [];
   newProduct: ProductWrite = new ProductWrite;
 
+  minDate = new Date();
+  enableTimer: boolean = true;
+
   inputCategory: string;
   inputName: string;
   inputPrice: number;
   inputDate: Date;
   inputDescription: string;
   buttonValue: boolean = true;
+  inputHours: number;
+  inputMinutes: number;
   user: User = JSON.parse(localStorage.getItem('currentUser'));
 
   constructor(private categoryService: CategoryService, private productService: ProductService, public toastr: ToastrManager, private router: Router) { }
 
   dropdownFormControl = new FormControl('', [Validators.required]);
   inputNameFormControl = new FormControl('', [Validators.required]);
-  inputPriceFormControl = new FormControl('', [Validators.required]);
+  inputPriceFormControl = new FormControl('', [Validators.required, Validators.min(1)]);
   inputDateFormControl = new FormControl('', [Validators.required]);
   inputDescriptionFormControl = new FormControl('', [Validators.required]);
+  inputHoursFormControl = new FormControl({ value: '0', disabled: this.enableTimer }, [Validators.required, Validators.min(0), Validators.max(23)]);
+  inputMinutesFormControl = new FormControl({ value: '0', disabled: this.enableTimer }, [Validators.required, Validators.min(0), Validators.max(59)]);
 
   ngOnInit() {
     this.categoryService.getAll().subscribe(categories => this.categories = categories);
+    this.minDate.setDate(this.minDate.getDate());
   }
 
   onCategoryChange(inputCategory) {
@@ -58,8 +66,42 @@ export class AddProductComponent implements OnInit {
 
   onDateChange(inputDate) {
     this.inputDate = inputDate;
+    if (this.inputDateFormControl.status == 'VALID') { 
+      this.inputHoursFormControl.enable();
+      this.inputMinutesFormControl.enable();
+      this.inputHours = 0;
+      this.inputMinutes = 0;
+      console.log("inDate: ", this.inputDate);
+    }
+    else { 
+      this.inputHoursFormControl.disable();
+      this.inputMinutesFormControl.disable();
+      this.inputHours = null;
+      this.inputMinutes = null;
+    }
     this.verifyAllFilled();
   }
+
+  onHoursChange(inputHours) {
+      this.inputHours = inputHours;
+      if (inputHours) {
+        this.inputDate.setHours(inputHours + 2);
+        this.inputDate.setSeconds(0);
+        console.log(this.inputDate);
+      }
+      this.verifyAllFilled();
+  }
+  onMinutesChange(inputMinutes) {
+    if (this.inputMinutesFormControl.status == 'VALID') {
+      this.inputMinutes = inputMinutes;
+      if(inputMinutes) {
+        this.inputDate.setMinutes(this.inputMinutes);
+      }
+      console.log(this.inputDate);
+    }
+    this.verifyAllFilled();
+  }
+
 
   onDescriptionChange(inputDescription) {
     this.inputDescription = inputDescription;
@@ -71,7 +113,11 @@ export class AddProductComponent implements OnInit {
       && this.inputNameFormControl.status == 'VALID'
       && this.inputPriceFormControl.status == 'VALID'
       && this.inputDateFormControl.status == 'VALID'
-      && this.inputDescriptionFormControl.status == 'VALID') this.buttonValue = false;
+      && this.inputDescriptionFormControl.status == 'VALID'
+      && this.inputHoursFormControl.status == 'VALID'
+      && this.inputMinutesFormControl.status == 'VALID') {
+      this.buttonValue = false;
+    }
     else this.buttonValue = true;
   }
 

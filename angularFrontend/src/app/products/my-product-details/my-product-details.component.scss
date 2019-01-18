@@ -40,3 +40,20 @@
 
   }
 }
+.date-time-picker {
+  display: flex;
+  
+  .time-picker {
+    display: flex;
+    margin-left: 20px;
+    justify-content: space-around;
+
+    #hours {
+      width: 50px;
+    }
+    #minutes {
+      margin-left: 20px;
+      width: 50px;
+    }
+  }
+}
