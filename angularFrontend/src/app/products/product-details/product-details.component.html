@@ -27,6 +27,7 @@
           <input [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)" placeholder="{{product.finalPrice}}" matInput type="number">
         </mat-form-field>
         <button mat-raised-button color="primary" [disabled]="buttonToggle" (click)="onSubmit()">Place bid</button>
+        <button mat-flat-button class="quick-bid" (click)="onRefresh()">Refresh</button>
       <div class="product-start-price">
         <p>Start Price: </p>
         {{product.startPrice}}

@@ -80,6 +80,7 @@ namespace BusinessLogic.Write.Implementations
 
             productToUpdate.FinalPrice = product.FinalPrice;
             productToUpdate.WinnerId = product.WinnerId;
+            if(product.Deadline >= DateTime.Today) { productToUpdate.Deadline = product.Deadline; }
 
             _repository.Update(productToUpdate);
             _repository.Save();

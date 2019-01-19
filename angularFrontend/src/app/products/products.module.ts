@@ -21,6 +21,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { MyProductCardComponent } from './my-product-card/my-product-card.component';
 import { MyProductDetailsComponent } from './my-product-details/my-product-details.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { CountdownTimerModule } from 'ngx-countdown-timer';
   ],
   providers: [
     DataService,
-    MatDatepickerModule
+    MatDatepickerModule,
+    DatePipe
   ]
 })
 export class ProductsModule { }

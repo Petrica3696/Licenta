@@ -28,7 +28,7 @@
       <!--Text-->
       <div>
         <p class="font-medium grey-dark-text mb-0"><i class="fa fa-clock-o pr-1"></i>
-          <countdown-timer  [end]="product.deadline"></countdown-timer>
+          <countdown-timer [end]="product.deadline"></countdown-timer>
         </p>
         <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
       </div>
@@ -42,12 +42,13 @@
         <li class="white-text"> 
           Current price: {{product.finalPrice}}</li>
         <li class="button-box">
-          <button mat-flat-button color="primary" class="white-text quick-bid" (click)="onQuickBid()">Quick bid</button>
+          <button mat-flat-button color="primary" class="white-text quick-bid" (click)="onQuickBid()" [disabled]="toggleButton">Quick bid</button>
+          <button mat-flat-button class="quick-bid" (click)="onRefresh()">Refresh</button>
         </li>
       </div>
       </ul> 
     </mdb-card-footer>
     <!-- Card footer -->
-  </mdb-card>
+  </mdb-card> 
   <!--/.Card-->
 </div>
