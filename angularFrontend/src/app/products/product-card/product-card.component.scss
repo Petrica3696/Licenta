@@ -1,5 +1,32 @@
 .product-card-box {
   padding-top:20px;
+
+  .product-title {
+    text-align: center;
+  }
+
+  .seller-section {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+
+    #rating {
+      width: 50px;
+    }
+
+    .centering-content {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .countdown-section {
+    text-align: center;
+
+    .timer {
+      font-size: 22px;
+    }
+  }
 }
 .card-body {
   padding: 0px;

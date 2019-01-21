@@ -7,5 +7,9 @@
   .informations-section {
     border: 2px solid blue;
     background-color: azure;
+
+    .rating-text {
+      margin-top: 40px;
+    }
   }
 }

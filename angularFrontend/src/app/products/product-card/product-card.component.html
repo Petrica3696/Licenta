@@ -5,29 +5,68 @@
     <!--Card image-->
     <div class="view overlay waves-light" mdbWavesEffect>
       <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
-      <a>
+      <a href='product-details/{{product.id}}'>
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
     <!--/.Card image-->
 
     <!--Button-->
-    <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect href='product-details/{{product.id}}'>
+    <!-- <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect href='product-details/{{product.id}}'>
       <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>See details</i>
-    </a>
+    </a> -->
 
     <!--Card content-->
     <mdb-card-body>
 
       <!--Title-->
-      <mdb-card-title>
-        <h4>{{product.name}}</h4>
+      <mdb-card-title class="product-title">
+        <a href='product-details/{{product.id}}'>
+          <h3>{{product.name}}</h3>
+        </a>
       </mdb-card-title>
+
+      <div class="seller-section">
+        <span>Seller: {{product.username}}</span>
+        <a mdbBtn floating="true" size="sm" gradient="blue" (click)="basicModal.show()" mdbWavesEffect>
+          <span>Rate </span>
+          <mdb-icon fas icon="star"></mdb-icon>
+        </a>
+        <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                  <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Rating</h4>
+              </div>
+              <div class="modal-body centering-content"> 
+                <form class="example-form">
+                  <span>Rate: </span>
+                  <mat-form-field class="example-full-width" id="rating">
+                    <input [formControl]="ratingFormControl" [ngModel]="inputRating" (ngModelChange)="onRatingChange($event)"
+                      matInput type="number" min="1" max="10">
+                    <mat-error *ngIf="ratingFormControl.hasError('min')">Min rate is <strong>1!</strong></mat-error>
+                    <mat-error *ngIf="ratingFormControl.hasError('max')">Max rate is <strong>10!</strong></mat-error>
+                  </mat-form-field>
+                </form>
+
+              </div>
+              <div class="modal-footer centering-content">
+                <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <hr>
       <!--Text-->
-      <div>
-        <p class="font-medium grey-dark-text mb-0"><i class="fa fa-clock-o pr-1"></i>
+      <div class="countdown-section">
+        <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
           <countdown-timer [end]="product.deadline"></countdown-timer>
         </p>
         <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
@@ -39,16 +78,17 @@
     <mdb-card-footer class="mdb-color lighten-3 text-center">
       <ul class="list-unstyled bid-box">
         <div>
-        <li class="white-text"> 
-          Current price: {{product.finalPrice}}</li>
-        <li class="button-box">
-          <button mat-flat-button color="primary" class="white-text quick-bid" (click)="onQuickBid()" [disabled]="toggleButton">Quick bid</button>
-          <button mat-flat-button class="quick-bid" (click)="onRefresh()">Refresh</button>
-        </li>
-      </div>
-      </ul> 
+          <li class="white-text">
+            Current price: {{product.finalPrice}}</li>
+          <li class="button-box">
+            <button mat-flat-button color="primary" class="white-text quick-bid" (click)="onQuickBid()" [disabled]="toggleButton">Quick
+              bid</button>
+            <button mat-flat-button class="quick-bid" (click)="onRefresh()">Refresh</button>
+          </li>
+        </div>
+      </ul>
     </mdb-card-footer>
     <!-- Card footer -->
-  </mdb-card> 
+  </mdb-card>
   <!--/.Card-->
 </div>

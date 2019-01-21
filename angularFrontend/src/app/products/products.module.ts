@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule  } from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
+import { ModalModule, ButtonsModule, WavesModule, InputsModule, CollapseModule } from 'angular-bootstrap-md';
 
 import { AllProductsComponent } from './all-products/all-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
@@ -47,7 +48,12 @@ import { DatePipe } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    CountdownTimerModule.forRoot()
+    CountdownTimerModule.forRoot(),
+    ButtonsModule,
+    WavesModule,
+    CollapseModule,
+    ModalModule,
+    InputsModule
   ],
   providers: [
     DataService,

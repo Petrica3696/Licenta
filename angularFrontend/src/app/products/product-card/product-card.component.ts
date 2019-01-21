@@ -5,6 +5,7 @@ import { ProductService, UserService } from 'src/app/_services';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { ProductBid } from 'src/app/_models/productBid';
 import { DatePipe } from '@angular/common';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-card',
@@ -15,6 +16,7 @@ export class ProductCardComponent implements OnInit {
 
   userDetails: User;
   toggleButton: boolean = false;
+  disableSave: boolean = true;
   productQuickBid: ProductBid = new ProductBid;
   currentDate: Date = new Date();
   lastMinute: Date = new Date();
@@ -22,6 +24,9 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
 
   constructor(private dataService: DataService, private productService: ProductService, private datePipe: DatePipe, private userCredentialsService: UserService, private changeDetectorRef: ChangeDetectorRef, public toastr: ToastrManager) { }
+
+  ratingFormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)])
+  inputRating: number = 1;
 
   ngOnInit() {
     this.userCredentialsService.getUserCredentials().subscribe(
@@ -98,5 +103,15 @@ export class ProductCardComponent implements OnInit {
 
   onRefresh() {
     this.productService.getProductById(this.product.id).subscribe(product => this.product = product);
+  }
+
+  onRatingChange(inputRating) {
+    this.inputRating = inputRating;
+    if(this.ratingFormControl.status === 'VALID') {
+      this.disableSave = false;
+    }
+    else {
+      this.disableSave = true;
+    }
   }
 }
