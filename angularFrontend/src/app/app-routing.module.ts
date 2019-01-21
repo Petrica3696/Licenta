@@ -3,6 +3,7 @@ import { AuthGuard } from './_guards';
 
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
+import { RegisterComponent } from './register/register.component';
 import { AllProductsComponent } from './products/all-products/all-products.component';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { MyProductsComponent } from './products/my-products/my-products.component';
@@ -12,6 +13,7 @@ import { MyProductDetailsComponent } from './products/my-product-details/my-prod
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
     { path: 'all-products', component: AllProductsComponent, canActivate: [AuthGuard]  },
     { path: 'my-products', component: MyProductsComponent, canActivate: [AuthGuard]  },
     { path: 'product-details/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]  },

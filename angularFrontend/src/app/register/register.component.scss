@@ -6,6 +6,15 @@
 
 .login-box {
   padding-top: 50px;
-  margin-top: 170px;
+  margin-top: 80px;
   background-color: azure;
+}
+.full-name {
+  display: inline;
+  #first-name {
+    width: 35%;
+  }
+  #last-name {
+    width: 35%;
+  }
 }

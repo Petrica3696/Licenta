@@ -20,6 +20,7 @@ import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { NavbarComponent } from './commons/navbar/navbar.component';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import { ToastrModule } from 'ng6-toastr-notifications';
         AppComponent,
         HomeComponent,
         LoginComponent,
-        NavbarComponent
+        NavbarComponent,
+        RegisterComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models.Write
 {
-    public class UserDto : BaseDto
+    public class UserDto
     {
         public string FirstName { get; set; }
 
