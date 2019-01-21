@@ -1,0 +1,63 @@
+<div class="container my-profile">
+
+  <div>
+    <h1>My profile</h1>
+  </div>
+
+  <div class="row">
+
+    <div class="col image-section">
+      1 of 2
+    </div>
+
+    <div class="col informations-section jumbotron">
+
+      <div *ngIf="toggleToEdit == false; else editProduct">
+
+        <div class="name">
+          <h5>Name </h5>
+          <h4><strong>{{user.firstName}} {{user.lastName}}</strong></h4>
+        </div>
+
+        <div class="username">
+          <h5>Username </h5>
+          <h4><strong>{{user.username}}</strong></h4>
+        </div>
+        <button mat-raised-button color="primary" (click)="onEdit()">Edit</button>
+      </div>
+
+      <ng-template #editProduct>
+        <div class="firstName">
+          <h5>First Name </h5>
+          <mat-form-field class="example-full-width">
+            <input [formControl]="inputFirstNameFormControl" matInput [ngModel]="inputFirstName" (ngModelChange)="onFirstNameChange($event)" value={{user.firstName}}>
+          </mat-form-field>
+        </div>
+
+        <div class="lastName">
+          <h5>Last Name </h5>
+          <mat-form-field class="example-full-width">
+            <input [formControl]="inputLastNameFormControl" matInput [ngModel]="inputLastName" (ngModelChange)="onLastNameChange($event)" value={{user.lastName}}>
+          </mat-form-field>
+        </div>
+
+        <div class="username">
+          <h5>Username </h5>
+          <mat-form-field class="example-full-width">
+            <input [formControl]="inputUsernameFormControl" matInput [ngModel]="inputUsername" (ngModelChange)="onUsernameChange($event)" value={{user.username}}>
+          </mat-form-field>
+        </div>
+
+        <div class="password">
+          <h5>Password </h5>
+          <mat-form-field class="example-full-width">
+            <input [formControl]="inputPasswordFormControl" matInput [ngModel]="inputPassword" (ngModelChange)="onPasswordChange($event)" type="password">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color={{buttonColor}} (click)="onSubmit()">{{buttonText}}</button>
+      </ng-template>
+
+
+    </div>
+  </div>
+</div>

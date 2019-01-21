@@ -30,4 +30,8 @@ export class UserService {
     async addUser(user: User): Promise<User> {
         return this.http.post<User>('http://localhost:4900/api/users', user).toPromise<User>();
     }
+
+    async editUser(id: string, user: User): Promise<User> {
+        return this.http.put<User>('http://localhost:4900/api/users/' + id, user).toPromise<User>();
+    }
 }

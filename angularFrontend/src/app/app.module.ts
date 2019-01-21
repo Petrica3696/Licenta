@@ -1,6 +1,6 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,8 +12,8 @@ import { ProductsModule } from './products/products.module';
 // used to create fake backend
 //import { fakeBackendProvider } from './_helpers';
 
-import { AppComponent }  from './app.component';
-import { routing }        from './app-routing.module';
+import { AppComponent } from './app.component';
+import { routing } from './app-routing.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
@@ -21,6 +21,10 @@ import { LoginComponent } from './login';
 import { NavbarComponent } from './commons/navbar/navbar.component';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { RegisterComponent } from './register/register.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material';
 
 @NgModule({
     imports: [
@@ -34,14 +38,18 @@ import { RegisterComponent } from './register/register.component';
         BrowserAnimationsModule,
         MatOptionModule,
         MatSelectModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule
     ],
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
         NavbarComponent,
-        RegisterComponent
+        RegisterComponent,
+        MyAccountComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

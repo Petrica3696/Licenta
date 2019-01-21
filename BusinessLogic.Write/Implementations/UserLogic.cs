@@ -51,16 +51,12 @@ namespace BusinessLogic.Write.Implementations
                 return;
             }
 
-            var updatedUser = new User
-            {
-                Id = userToUpdate.Id,
-                FirstName = (user.FirstName != null) ? user.FirstName : userToUpdate.FirstName,
-                LastName = (user.LastName != null) ? user.LastName : userToUpdate.LastName,
-                Username = (user.Username != null) ? user.Username : userToUpdate.Username,
-                Password = (user.Password != null) ? user.Password : userToUpdate.Password
-            };
+            if (user.FirstName != null) userToUpdate.FirstName = user.FirstName;
+            if (user.LastName != null) userToUpdate.LastName = user.LastName;
+            if (user.Username != null) userToUpdate.Username = user.Username;
+            if (user.Password != null) userToUpdate.Password = user.Password;
 
-            _repository.Update(updatedUser);
+            _repository.Update(userToUpdate);
             _repository.Save();
         }
     }

@@ -9,6 +9,7 @@ import { ProductDetailsComponent } from './products/product-details/product-deta
 import { MyProductsComponent } from './products/my-products/my-products.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { MyProductDetailsComponent } from './products/my-product-details/my-product-details.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'product-details/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]  },
     { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]  },
     { path: 'my-product-details/:id', component: MyProductDetailsComponent, canActivate: [AuthGuard]  },
+    { path: 'my-account', component: MyAccountComponent, canActivate: [AuthGuard]  },
     
 
     // otherwise redirect to home
