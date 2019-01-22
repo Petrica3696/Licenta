@@ -25,18 +25,18 @@ namespace Service.Read.Controllers
             return _userLogic.GetAll();
         }
 
-        //[HttpGet("{username}")]
-        //public IActionResult GetByUserName([FromRoute] string username)
-        //{
-        //    var response = _userLogic.GetByUsername(username);
-        //    if( response == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(response);
-        //}
+        [HttpGet("{username}")]
+        public IActionResult GetByUserName([FromRoute] string username)
+        {
+            var response = _userLogic.GetByUsername(username);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
 
-        
+
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserDto userParam)
         {

@@ -13,6 +13,46 @@
 
     <div class="product-name">
       <h1>{{product.name}}</h1>
+
+      <div class="seller-section">
+          <span>Seller: {{product.username}}</span>
+          <div *ngIf="sellerDetails.rate != 0">R: {{sellerDetails.rate}}</div>
+          <a mdbBtn floating="true" size="sm" gradient="blue" (click)="basicModal.show()" mdbWavesEffect>
+            <span>Rate </span>
+            <mdb-icon fas icon="star"></mdb-icon>
+          </a>
+          <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="myModalLabel">Rating</h4>
+                </div>
+                <div class="modal-body centering-content">
+                  <form class="example-form">
+                    <span>Rate: </span>
+                    <mat-form-field class="example-full-width" id="rating">
+                      <input [formControl]="ratingFormControl" [ngModel]="inputRating" (ngModelChange)="onRatingChange($event)"
+                        matInput type="number" min="1" max="10">
+                      <mat-error *ngIf="ratingFormControl.hasError('min')">Min rate is <strong>1!</strong></mat-error>
+                      <mat-error *ngIf="ratingFormControl.hasError('max')">Max rate is <strong>10!</strong></mat-error>
+                    </mat-form-field>
+                  </form>
+  
+                </div>
+                <div class="modal-footer centering-content">
+                  <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light" aria-label="Close"
+                    (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                  <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light"
+                  (click)="basicModal.hide()" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div class="product-deadline">

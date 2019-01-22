@@ -32,15 +32,10 @@ export class MyAccountComponent implements OnInit {
   ngOnInit() {
     this.userService.getUserCredentials().subscribe(
       userDetails => {
-          this.user = userDetails;
-          this.changeDetectorRef.detectChanges();
-      }
-  );
-    console.log(this.toggleToEdit);
-    console.log(this.inputFirstName);
-    console.log(this.inputLastName);
-    console.log(this.inputUsername);
-    console.log(this.inputPassowrd);
+        this.user = userDetails;
+        console.log(this.user.rate);
+        this.changeDetectorRef.detectChanges();
+      });
   }
 
   onFirstNameChange(inputFirstName) {
@@ -66,7 +61,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   isAnyFieldValid() {
-    if(
+    if (
       (this.inputFirstName !== undefined && this.inputFirstName !== '' && this.inputFirstName !== this.user.firstName) ||
       (this.inputLastName !== undefined && this.inputLastName !== '' && this.inputLastName !== this.user.lastName) ||
       (this.inputUsername !== undefined && this.inputUsername !== '' && this.inputUsername !== this.user.username)
@@ -78,7 +73,7 @@ export class MyAccountComponent implements OnInit {
       this.buttonText = 'Back';
       this.buttonColor = 'warn';
     }
-    
+
   }
 
   onEdit() {
@@ -87,7 +82,7 @@ export class MyAccountComponent implements OnInit {
 
   onSubmit() {
 
-    if(this.buttonText === 'Edit') {
+    if (this.buttonText === 'Edit') {
       if (this.inputFirstName !== undefined && this.inputFirstName !== '' && this.inputFirstName !== this.user.firstName) this.changedUser.firstName = this.inputFirstName;
       if (this.inputLastName !== undefined && this.inputLastName !== '' && this.inputLastName !== this.user.lastName) this.changedUser.lastName = this.inputLastName;
       if (this.inputUsername !== undefined && this.inputUsername !== '' && this.inputUsername !== this.user.username) this.changedUser.username = this.inputUsername;
@@ -97,10 +92,10 @@ export class MyAccountComponent implements OnInit {
         this.toastr.successToastr('', "The profile was successfuly edited!");
         this.userService.getUserCredentials().subscribe(
           userDetails => {
-              this.user = userDetails;
-              this.changeDetectorRef.detectChanges();
+            this.user = userDetails;
+            this.changeDetectorRef.detectChanges();
           }
-      );
+        );
       }).catch(err => {
         this.toastr.errorToastr('', "There was an issue when editing your profile. Please try again");
       });

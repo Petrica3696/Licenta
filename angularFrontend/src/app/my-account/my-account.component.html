@@ -26,7 +26,10 @@
         <button mat-raised-button color="primary" (click)="onEdit()">Edit</button>
         
         <div class="rating-text">
-          <h4><strong>Rating: 10</strong></h4>
+          <h4><strong>Rating: 
+            <span *ngIf="user.rate != 0; else noRate">{{user.rate | number : '1.2-2'}}</span>
+            <ng-template #noRate>N/A</ng-template>
+          </strong></h4>
         </div>
       </div>
 

@@ -27,11 +27,19 @@ export class UserService {
         });
     }
 
+    getByUsername(username: string) {
+        return this.http.get<User>('http://localhost:44800/api/users/' + username);
+    }
+
     async addUser(user: User): Promise<User> {
         return this.http.post<User>('http://localhost:4900/api/users', user).toPromise<User>();
     }
 
     async editUser(id: string, user: User): Promise<User> {
         return this.http.put<User>('http://localhost:4900/api/users/' + id, user).toPromise<User>();
+    }
+
+    async rateUser(id: string, rating: number): Promise<number> {
+        return this.http.put<number>('http://localhost:4900/api/users/rate/' + id, rating).toPromise<number>();
     }
 }

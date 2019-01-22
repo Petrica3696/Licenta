@@ -28,6 +28,7 @@
 
       <div class="seller-section">
         <span>Seller: {{product.username}}</span>
+        <div *ngIf="sellerDetails.rate != 0">R: {{sellerDetails.rate | number : '1.2-2'}}</div>
         <a mdbBtn floating="true" size="sm" gradient="blue" (click)="basicModal.show()" mdbWavesEffect>
           <span>Rate </span>
           <mdb-icon fas icon="star"></mdb-icon>
@@ -42,7 +43,7 @@
                 </button>
                 <h4 class="modal-title w-100" id="myModalLabel">Rating</h4>
               </div>
-              <div class="modal-body centering-content"> 
+              <div class="modal-body centering-content">
                 <form class="example-form">
                   <span>Rate: </span>
                   <mat-form-field class="example-full-width" id="rating">
@@ -55,8 +56,10 @@
 
               </div>
               <div class="modal-footer centering-content">
-                <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
-                <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
+                <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light" aria-label="Close"
+                  (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light"
+                (click)="basicModal.hide()" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
               </div>
             </div>
           </div>

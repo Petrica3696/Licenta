@@ -15,6 +15,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class ProductCardComponent implements OnInit {
 
   userDetails: User;
+  sellerDetails: User;
   toggleButton: boolean = false;
   disableSave: boolean = true;
   productQuickBid: ProductBid = new ProductBid;
@@ -23,18 +24,30 @@ export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;
 
-  constructor(private dataService: DataService, private productService: ProductService, private datePipe: DatePipe, private userCredentialsService: UserService, private changeDetectorRef: ChangeDetectorRef, public toastr: ToastrManager) { }
+  constructor(private dataService: DataService,
+    private productService: ProductService,
+    private datePipe: DatePipe,
+    private userService: UserService,
+    private changeDetectorRef: ChangeDetectorRef,
+    public toastr: ToastrManager) { }
 
-  ratingFormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)])
-  inputRating: number = 1;
+  ratingFormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]);
+  inputRating: number = 0;
 
   ngOnInit() {
-    this.userCredentialsService.getUserCredentials().subscribe(
+    this.userService.getUserCredentials().subscribe(
       userDetails => {
         this.userDetails = userDetails;
         this.changeDetectorRef.detectChanges();
       }
     );
+
+    this.userService.getByUsername(this.product.username).subscribe(
+      sellerDetails => {
+        this.sellerDetails = sellerDetails;
+        this.changeDetectorRef.detectChanges();
+      }
+    )
 
     this.product.deadline = new Date(this.product.deadline);
     if (this.product.deadline > this.currentDate) {
@@ -56,7 +69,6 @@ export class ProductCardComponent implements OnInit {
       }
       else {
         this.product.deadline = new Date(product.deadline);
-        console.log("product-deadline: ", product.deadline);
         this.currentDate = new Date();
         this.lastMinute = new Date();
         if (this.product.deadline > this.currentDate) {
@@ -65,31 +77,30 @@ export class ProductCardComponent implements OnInit {
           if (this.product.finalPrice == 0) {
             this.product.finalPrice = this.product.startPrice;
             this.productQuickBid.finalPrice = this.product.finalPrice;
-  
+
           }
           else {
             this.product.finalPrice++;
             this.productQuickBid.finalPrice = this.product.finalPrice;
           }
           this.productQuickBid.winnerId = this.userDetails.id.toString();
-          
+
 
           this.lastMinute.setMinutes(this.lastMinute.getMinutes() + 1);
-          if(this.lastMinute > this.product.deadline) {
+          if (this.lastMinute > this.product.deadline) {
             this.productQuickBid.deadline = new Date();
             this.productQuickBid.deadline.setMinutes(this.productQuickBid.deadline.getMinutes() + 1);
             this.product.deadline = this.lastMinute;
-            
+
             this.productQuickBid.deadline.setHours(this.productQuickBid.deadline.getHours() + 2);
           }
-          console.log(new Date(), ' ', this.productQuickBid.deadline);
-          
+
           this.productService.bidProduct(this.product.id, this.productQuickBid).then(result => {
             this.toastr.successToastr('', "Bid success!");
           }).catch(err => {
             this.toastr.errorToastr('', "Bid error. Please try again");
           });
-  
+
         }
         else {
           this.toggleButton = true;
@@ -107,11 +118,20 @@ export class ProductCardComponent implements OnInit {
 
   onRatingChange(inputRating) {
     this.inputRating = inputRating;
-    if(this.ratingFormControl.status === 'VALID') {
+    if (this.ratingFormControl.status === 'VALID') {
       this.disableSave = false;
     }
     else {
       this.disableSave = true;
     }
+  }
+
+  onSubmitRate() {
+    this.userService.rateUser(this.sellerDetails.id.toString(), this.inputRating).then(result => {
+      this.toastr.successToastr('', "Thanks for your rate!");
+      this.userService.getByUsername(this.product.username).subscribe(sellerDetails => { this.sellerDetails = sellerDetails; });
+    }).catch(err => {
+      this.toastr.errorToastr('', "Rate error. Please try again later");
+    });
   }
 }

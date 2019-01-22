@@ -11,5 +11,7 @@ namespace BusinessLogic.Read.Abstractions.QueryBuilders
         string BuildGetByUsernameAndPasswordQuery(string username, string password);
 
         string BuildGetQuery();
+
+        string BuildGetByUsernameQuery(string username);
     }
 }

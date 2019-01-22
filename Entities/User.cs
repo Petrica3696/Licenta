@@ -13,5 +13,7 @@ namespace Entities
         public string Password { get; set; }
 
         public string Token { get; set; }
+
+        public double? Rate { get; set; }
     }
 }

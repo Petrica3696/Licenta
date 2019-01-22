@@ -25,7 +25,8 @@ namespace BusinessLogic.Write.Implementations
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Password = user.Password
+                Password = user.Password,
+                Rate = 0
             };
 
             _repository.Insert(newUser);
@@ -55,6 +56,28 @@ namespace BusinessLogic.Write.Implementations
             if (user.LastName != null) userToUpdate.LastName = user.LastName;
             if (user.Username != null) userToUpdate.Username = user.Username;
             if (user.Password != null) userToUpdate.Password = user.Password;
+
+            _repository.Update(userToUpdate);
+            _repository.Save();
+        }
+
+        public void UpdateRate(Guid id, double rate)
+        {
+            var userToUpdate = _repository.GetByFilter<User>(p => p.Id == id);
+
+            if (userToUpdate == null)
+            {
+                return;
+            }
+
+            if (userToUpdate.Rate == 0)
+            {
+                userToUpdate.Rate = rate;
+            }
+            else
+            {
+                userToUpdate.Rate = (userToUpdate.Rate + rate) / 2;
+            }
 
             _repository.Update(userToUpdate);
             _repository.Save();
