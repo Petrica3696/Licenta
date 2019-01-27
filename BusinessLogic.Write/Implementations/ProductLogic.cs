@@ -33,7 +33,8 @@ namespace BusinessLogic.Write.Implementations
                 StartPrice = product.StartPrice,
                 FinalPrice = null,
                 Deadline = product.Deadline,
-                IsSold = false
+                IsSold = false,
+                ImageFile = product.ImageFile
             };
 
             _repository.Insert(newProduct);
@@ -84,6 +85,31 @@ namespace BusinessLogic.Write.Implementations
 
             _repository.Update(productToUpdate);
             _repository.Save();
+
+            Recommendations recommendations = _repository.GetByFilter<Recommendations>(p => p.UserId == product.WinnerId && p.CategoryId == productToUpdate.CategoryId);
+
+            if(recommendations == null)
+            {
+                var newBid = new Recommendations
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = productToUpdate.CategoryId,
+                    UserId = product.WinnerId,
+                    Bids = 0
+                };
+
+                _repository.Insert(newBid);
+                _repository.Save();
+            }
+            else
+            {
+                recommendations.Bids++;
+
+                _repository.Update(recommendations);
+                _repository.Save();
+            }
+
+            
         }
     }
 }

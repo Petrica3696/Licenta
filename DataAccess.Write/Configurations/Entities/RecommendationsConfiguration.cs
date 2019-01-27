@@ -7,13 +7,16 @@ using System.Text;
 
 namespace DataAccess.Write.Configurations.Entities
 {
-    public class CategoryConfiguration : BaseEntityConfiguration, IEntityTypeConfiguration<Category>
+    public class RecommendationsConfiguration : BaseEntityConfiguration, IEntityTypeConfiguration<Recommendations>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Recommendations> builder)
         {
             base.Configure(builder);
 
-            builder.Property(p => p.Name)
+            builder.Property(p => p.CategoryId)
+                .IsRequired();
+
+            builder.Property(p => p.UserId)
                 .IsRequired();
         }
     }

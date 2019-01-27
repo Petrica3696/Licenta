@@ -17,11 +17,14 @@ namespace DataAccess.Write
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Recommendations> Recommendations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RecommendationsConfiguration());
         }
     }
 }

@@ -23,7 +23,7 @@ export class ProductDetailsComponent implements OnInit {
   placedBid: number;
   productBid: ProductBid = new ProductBid;
   userDetails: User;
-  sellerDetails: User;
+  sellerDetails: User = new User;
   lastMinute: Date = new Date();
 
   constructor(
@@ -37,6 +37,7 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get("id");
+
     this.productService.getProductById(this.productId).subscribe(
       product => {
         this.product = product;
@@ -48,6 +49,7 @@ export class ProductDetailsComponent implements OnInit {
           }
         );
       });
+
     this.userService.getUserCredentials().subscribe(
       userDetails => {
         this.userDetails = userDetails;

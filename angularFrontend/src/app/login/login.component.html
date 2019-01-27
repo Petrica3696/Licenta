@@ -24,7 +24,7 @@
         </div>
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         <div class="register-section">
-            <h6>You don't have an account? <a href="register">Click here</a> to register.</h6>
+            <h6>You don't have an account? <a (click)="onClick()"><strong style="color: lightseagreen">Click here</strong></a> to register.</h6>
         </div>
     </form>
 </div>

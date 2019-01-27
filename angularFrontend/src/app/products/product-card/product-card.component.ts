@@ -6,6 +6,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { ProductBid } from 'src/app/_models/productBid';
 import { DatePipe } from '@angular/common';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -15,7 +16,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class ProductCardComponent implements OnInit {
 
   userDetails: User;
-  sellerDetails: User;
+  sellerDetails: User = new User();
   toggleButton: boolean = false;
   disableSave: boolean = true;
   productQuickBid: ProductBid = new ProductBid;
@@ -29,7 +30,8 @@ export class ProductCardComponent implements OnInit {
     private datePipe: DatePipe,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
-    public toastr: ToastrManager) { }
+    public toastr: ToastrManager,
+    private router: Router) { }
 
   ratingFormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)]);
   inputRating: number = 0;
@@ -133,5 +135,9 @@ export class ProductCardComponent implements OnInit {
     }).catch(err => {
       this.toastr.errorToastr('', "Rate error. Please try again later");
     });
+  }
+
+  onSeeDetails() {
+    this.router.navigate(['/product-details/' + this.product.id]);
   }
 }

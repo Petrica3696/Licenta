@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormControl, Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { UserService } from '../_services/user.service';
 import { User } from '../_models/user';
@@ -20,7 +20,14 @@ export class RegisterComponent implements OnInit {
   registerDisabled: boolean = true;
   user: User = new User();
 
-  constructor(private userService: UserService, public toastr: ToastrManager, private router: Router) { }
+  form: FormGroup;
+  loading: boolean = false;
+
+  @ViewChild('fileInput') fileInput: ElementRef;
+
+  constructor(private userService: UserService, public toastr: ToastrManager, private router: Router,  private fb: FormBuilder) {
+    this.createForm();
+  }
 
   firstNameFormControl = new FormControl('', [Validators.required]);
   lastNameFormControl = new FormControl('', [Validators.required]);
@@ -28,6 +35,13 @@ export class RegisterComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
 
   ngOnInit() {
+  }
+
+  createForm() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      avatar: null
+    });
   }
 
   onFirstNameChange(inputFirstName) {
@@ -50,6 +64,22 @@ export class RegisterComponent implements OnInit {
     this.verifyAllFilled();
   }
 
+  onFileChanged(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.form.get('avatar').setValue({
+          filename: file.name,
+          filetype: file.type,
+          value: reader.result
+        })
+        console.log(this.form.get('avatar').value.value);
+      };
+    }
+  }
+
   verifyAllFilled() {
     if(this.firstNameFormControl.status == 'VALID' &&
     this.lastNameFormControl.status == 'VALID' &&
@@ -67,13 +97,19 @@ export class RegisterComponent implements OnInit {
     this.user.lastName = this.inputLastName;
     this.user.username = this.inputUsername;
     this.user.password = this.inputPassword;
-    console.log(this.user);
+    this.user.avatar = this.form.get('avatar').value.value;
+
+
     this.userService.addUser(this.user).then(result => {
       this.toastr.successToastr('', "Your registration was successful! Please login with your credentials.");
       this.router.navigate(["login"]);
     }).catch(err => {
       this.toastr.errorToastr('', "There was an issue. Please try again");
     });
+  }
+
+  onClick() {
+    this.router.navigate(['/login']);
   }
 
 }

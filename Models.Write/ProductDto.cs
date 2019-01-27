@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,5 +24,7 @@ namespace Models.Write
         public DateTime Deadline { get; set; }
 
         public bool IsSold { get; set; }
+
+        public string ImageFile { get; set; }
     }
 }

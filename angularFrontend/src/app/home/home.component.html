@@ -1,11 +1,22 @@
-<div class="container-fliod">
-    <h1>Home</h1>
-    <p>You're logged in with Angular 6 & JWT!!</p>
-    <div>
-        Users from secure api end point:
-        <ul>
-            <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</li>
-        </ul>
-    </div>
-    <p><a [routerLink]="['/login']">Logout</a></p>
+<div class="col-sm-10 offset-sm-1 home-page">
+  <div class="welcome-message">
+      <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);">
+        <div class="text-white text-center py-5 px-4 my-5">
+          <div>
+            <h2 class="card-title h1-responsive pt-3 mb-5 font-bold"><strong>Welcome to E-Auction</strong></h2>
+            <p class="mx-5 mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam,
+              voluptatem,
+              optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos. Odit sed qui,
+              dolorum!
+            </p>
+            <a mdbBtn color="white" outline="true" class="waves-light" (click)="onClick()" mdbWavesEffect>
+              <mdb-icon fas icon="clone" class="left"></mdb-icon>See products
+            </a>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="recommendations">
+    <h4><strong>You might be interested in</strong></h4>
 </div>

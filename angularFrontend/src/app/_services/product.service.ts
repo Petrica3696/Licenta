@@ -20,6 +20,10 @@ export class ProductService {
         return this.http.get<Product[]>('http://localhost:44800/api/products/my-products/' + username);
     }
 
+    getRecommendations(userId: string): Observable<Product[]> {
+        return this.http.get<Product[]>('http://localhost:44800/api/products/recommendations/' + userId);
+    }
+
     async addProduct(product: ProductWrite): Promise<ProductWrite> {
         return this.http.post<ProductWrite>('http://localhost:4900/api/products', product).toPromise<ProductWrite>();
     }

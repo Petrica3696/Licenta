@@ -29,13 +29,17 @@
         class="form-control" />
     </div>
 
+    <div class="upload-file">
+      <input type="file" id="avatar" (change)="onFileChanged($event)" #fileInput>
+    </div>
+
     <div class="form-group">
       <button [disabled]="registerDisabled" class="btn btn-primary" (click)="onSubmit()">Register</button>
     </div>
     <div *ngIf="error" class="alert alert-danger">{{error}}</div>
 
     <div class="register-section">
-      <h6>Do you already have an account?<a href="login">Click here</a> to login.</h6>
+      <h6>Do you already have an account?<a (click)="onClick()"><strong style="color:lightseagreen">Click here</strong></a> to login.</h6>
     </div>
   </div>
 </div>

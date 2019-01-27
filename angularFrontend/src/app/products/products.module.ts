@@ -55,6 +55,9 @@ import { DatePipe } from '@angular/common';
     ModalModule,
     InputsModule
   ],
+  exports: [
+    ProductCardComponent
+  ],
   providers: [
     DataService,
     MatDatepickerModule,

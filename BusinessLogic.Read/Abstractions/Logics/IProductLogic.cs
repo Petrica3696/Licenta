@@ -9,6 +9,8 @@ namespace BusinessLogic.Read.Abstractions.Logics
     {
         IEnumerable<ProductDto> GetAll();
 
+        IEnumerable<ProductDto> GetRecommendations(Guid id);
+
         ProductDto GetProduct(Guid id);
 
         IEnumerable<ProductDto> GetByCategoryId(string id);

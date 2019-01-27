@@ -27,6 +27,13 @@ namespace Service.Read.Controllers
             return _productLogic.GetAll();
         }
 
+        //GET api/products/recommendations
+        [HttpGet("recommendations/{id}")]
+        public IEnumerable<ProductDto> GetRecommendations([FromRoute] Guid id)
+        {
+            return _productLogic.GetRecommendations(id);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<ProductDto> GetProduct([FromRoute] Guid id)
         {

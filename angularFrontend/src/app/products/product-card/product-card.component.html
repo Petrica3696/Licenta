@@ -3,25 +3,27 @@
   <mdb-card>
 
     <!--Card image-->
-    <div class="view overlay waves-light" mdbWavesEffect>
-      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
-      <a href='product-details/{{product.id}}'>
+    <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+      <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+      <a>
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
+    <ng-template #noImage>
+      <div class="view overlay waves-light" mdbWavesEffect>
+        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+    </ng-template>
     <!--/.Card image-->
 
-    <!--Button-->
-    <!-- <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect href='product-details/{{product.id}}'>
-      <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>See details</i>
-    </a> -->
-
-    <!--Card content-->
     <mdb-card-body>
 
       <!--Title-->
       <mdb-card-title class="product-title">
-        <a href='product-details/{{product.id}}'>
+        <a (click)="onSeeDetails()">
           <h3>{{product.name}}</h3>
         </a>
       </mdb-card-title>

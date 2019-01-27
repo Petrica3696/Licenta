@@ -26,7 +26,8 @@ namespace BusinessLogic.Write.Implementations
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Password = user.Password,
-                Rate = 0
+                Rate = 0,
+                Avatar = user.Avatar
             };
 
             _repository.Insert(newUser);

@@ -23,5 +23,7 @@ namespace Models.Read
         public DateTime Deadline { get; set; }
 
         public bool IsSold { get; set; }
+
+        public string ImageFile { get; set; }
     }
 }

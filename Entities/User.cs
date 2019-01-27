@@ -15,5 +15,7 @@ namespace Entities
         public string Token { get; set; }
 
         public double? Rate { get; set; }
+
+        public string Avatar { get; set; }
     }
 }

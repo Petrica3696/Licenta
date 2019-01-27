@@ -26,6 +26,16 @@ namespace BusinessLogic.Read.Implementations.Logics
             return _repository.ExecuteQuery<ProductDto>(query);
         }
 
+        public IEnumerable<ProductDto> GetRecommendations(Guid id)
+        {
+            var categQuery = _queryBuilder.BuildGetRecommendationsQuery(id);
+            var categId = _repository.ExecuteQuery<ProductDto>(categQuery)[0].CategoryId;
+
+            var query = _queryBuilder.BuildGetByCategoryIdQuery(categId);
+
+            return _repository.ExecuteQuery<ProductDto>(query);
+        }
+
         public ProductDto GetProduct(Guid id)
         {
             var query = _queryBuilder.BuildGetProduct(id);

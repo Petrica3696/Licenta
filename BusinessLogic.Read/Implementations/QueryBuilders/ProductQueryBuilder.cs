@@ -19,6 +19,21 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
             return queryBuilder.BuildQuery();
         }
 
+        public string BuildGetRecommendationsQuery(Guid id)
+        {
+            var queryBuilder = new SelectQueryBuilder();
+
+            queryBuilder.SelectFromTable("Recommendations");
+            queryBuilder.SelectColumn("Recommendations.CategoryId");
+            queryBuilder.AddWhere("UserId", Comparison.Equals, id.ToString());
+            queryBuilder.AddOrderBy("Bids", Sorting.Descending);
+            queryBuilder.TopRecords = 1;
+
+            return queryBuilder.BuildQuery();
+        }
+
+
+
         public string BuildGetProduct(Guid id)
         {
             var queryBuilder = new SelectQueryBuilder();

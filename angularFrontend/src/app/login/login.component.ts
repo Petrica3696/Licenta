@@ -60,4 +60,8 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    onClick() {
+        this.router.navigate(['/register']);
+    }
 }

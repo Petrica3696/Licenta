@@ -1,12 +1,20 @@
 <div class="product-details" *ngIf="product && category && categories">
 
   <div class="image-box">
-    <div class="view overlay waves-light" mdbWavesEffect>
-      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+    <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+      <mdb-card-img src={{product.imageFile}}></mdb-card-img>
       <a>
         <div class="mask rgba-white-slight"></div>
       </a>
     </div>
+    <ng-template #noImage>
+      <div class="view overlay waves-light" mdbWavesEffect>
+        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+    </ng-template>
   </div>
 
   <div class="product-content-informations container">

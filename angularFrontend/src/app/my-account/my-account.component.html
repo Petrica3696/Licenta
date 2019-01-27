@@ -7,7 +7,20 @@
   <div class="row">
 
     <div class="col image-section">
-      1 of 2
+      <div class="view overlay waves-light" mdbWavesEffect *ngIf="user.avatar; else noImage">
+        <mdb-card-img src={{user.avatar}}></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <ng-template #noImage>
+        <div class="view overlay waves-light" mdbWavesEffect>
+          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+      </ng-template>
     </div>
 
     <div class="col informations-section jumbotron">

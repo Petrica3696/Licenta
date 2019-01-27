@@ -8,6 +8,7 @@ import { MatOptionModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material';
 
 import { ProductsModule } from './products/products.module';
+import { CarouselModule, ModalModule, ButtonsModule, WavesModule, InputsModule, IconsModule, CollapseModule } from 'angular-bootstrap-md';
 
 // used to create fake backend
 //import { fakeBackendProvider } from './_helpers';
@@ -25,6 +26,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material';
+import { SearchPipe } from './_pipes/search.pipe';
 
 @NgModule({
     imports: [
@@ -41,7 +43,14 @@ import { MatFormFieldModule } from '@angular/material';
         ToastrModule.forRoot(),
         MatButtonModule,
         MatInputModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        CarouselModule,
+        WavesModule,
+        ModalModule,
+        ButtonsModule,
+        InputsModule,
+        CollapseModule,
+        IconsModule
     ],
     declarations: [
         AppComponent,
@@ -49,7 +58,8 @@ import { MatFormFieldModule } from '@angular/material';
         LoginComponent,
         NavbarComponent,
         RegisterComponent,
-        MyAccountComponent
+        MyAccountComponent,
+        SearchPipe
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
