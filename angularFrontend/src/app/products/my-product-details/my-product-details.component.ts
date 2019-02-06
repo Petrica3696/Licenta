@@ -6,7 +6,8 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { ProductService } from '../../_services/product.service';
 import { CategoryService } from '../../_services/categories.service';
 
-import { Product, ProductEdit, Category } from 'src/app/_models';
+import { Product, ProductEdit, Category, User, Comment } from 'src/app/_models';
+import { UserService } from 'src/app/_services';
 
 @Component({
   selector: 'app-my-product-details',
@@ -29,22 +30,53 @@ export class MyProductDetailsComponent implements OnInit {
   inputDate: Date = null;
   inputDescription: string = null;
   buttonValue: boolean = true;
+  commentInfo: Comment = new Comment;
+  comments: Comment[] = [];
+  sellerDetails: User = new User;
+  userDetails: User;
 
   minDate = new Date();
   enableTimer: boolean = true;
 
+  inputComment: string;
+  inputDescriptionFormControl = new FormControl('', [Validators.nullValidator]);
   inputDateFormControl = new FormControl('', [Validators.nullValidator]);
   inputHoursFormControl = new FormControl({ value: '0', disabled: this.enableTimer }, [Validators.required, Validators.min(0), Validators.max(23)]);
   inputMinutesFormControl = new FormControl({ value: '0', disabled: this.enableTimer }, [Validators.required, Validators.min(0), Validators.max(59)]);
 
-  constructor(private categoryService: CategoryService, private productService: ProductService, private route: ActivatedRoute, public toastr: ToastrManager, private router: Router) { }
+  constructor(
+    private categoryService: CategoryService,
+    private productService: ProductService,
+    private userService: UserService,
+    private route: ActivatedRoute, 
+    public toastr: ToastrManager, 
+    private router: Router) { }
 
   ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get("id");
     this.productService.getProductById(this.productId).subscribe(product => {
       this.product = product;
       this.categoryService.getCategoryById(this.product.categoryId).subscribe(category => this.category = category);
+
+      //get seller details
+      this.userService.getByUsername(this.product.username).subscribe(
+        sellerDetails => {
+          this.sellerDetails = sellerDetails;
+        }
+      );
+
+      //get comments for this specific product
+      this.productService.getComments(product.id).subscribe(
+        comments => {this.comments = comments; console.log(comments); console.log("length: ", comments.length)}
+      );
     });
+
+    this.userService.getUserCredentials().subscribe(
+      userDetails => {
+        this.userDetails = userDetails;
+      }
+    );
+
     this.categoryService.getAll().subscribe(categories => this.categories = categories);
 
     this.minDate.setDate(this.minDate.getDate());
@@ -137,6 +169,33 @@ export class MyProductDetailsComponent implements OnInit {
       this.router.navigate(["my-products"]);
     }).catch(err => {
       this.toastr.errorToastr('', "There was an issue when adding product. Please try again");
+    });
+  }
+
+  onCommentChange(inputComment) {
+    this.inputComment = inputComment;
+  }
+
+  onSubmitComment() {
+    console.log("product id: ", this.product.id);
+    console.log("user id: ", this.userDetails.id);
+    console.log("input comment: ", this.inputComment);
+    console.log("post date: ", new Date());
+    this.commentInfo.productId = this.product.id;
+    this.commentInfo.userId = this.userDetails.id.toString();
+    this.commentInfo.text = this.inputComment;
+
+    this.productService.submitComment(this.commentInfo).then(result => {
+      this.toastr.successToastr('', "Commentary placed!");
+      
+      this.productService.getComments(this.product.id).subscribe(
+        comments => {
+          this.comments = comments;
+          this.inputComment = '';}
+      );
+
+    }).catch(err => {
+      this.toastr.errorToastr('', "There was an issue when trying to place your comment. Please try again later!");
     });
   }
 

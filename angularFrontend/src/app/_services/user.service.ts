@@ -31,6 +31,10 @@ export class UserService {
         return this.http.get<User>('http://localhost:44800/api/users/' + username);
     }
 
+    getById(id: string) {
+        return this.http.get<User>('http://localhost:44800/api/users/get-by-id/' + id);
+    }
+
     async addUser(user: User): Promise<User> {
         return this.http.post<User>('http://localhost:4900/api/users', user).toPromise<User>();
     }

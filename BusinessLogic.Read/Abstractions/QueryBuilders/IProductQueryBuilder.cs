@@ -10,6 +10,8 @@ namespace BusinessLogic.Read.Abstractions.QueryBuilders
 
         string BuildGetRecommendationsQuery(Guid id);
 
+        string BuildGetCommentsQuery(Guid id);
+
         string BuildGetWishlistQuery(Guid id);
 
         string BuildGetProduct(Guid id);

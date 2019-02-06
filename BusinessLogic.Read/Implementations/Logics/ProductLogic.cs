@@ -45,6 +45,12 @@ namespace BusinessLogic.Read.Implementations.Logics
 
         }
 
+        public IEnumerable<CommentsDto> GetComments(Guid id)
+        {
+            var query = _queryBuilder.BuildGetCommentsQuery(id);
+            return _repository.ExecuteQuery<CommentsDto>(query);
+        }
+
         public IEnumerable<ProductDto> GetWishlist(Guid id)
         {
             var query = _queryBuilder.BuildGetWishlistQuery(id);

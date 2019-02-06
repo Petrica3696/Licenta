@@ -11,6 +11,8 @@ namespace BusinessLogic.Read.Abstractions.Logics
 
         IEnumerable<ProductDto> GetRecommendations(Guid id);
 
+        IEnumerable<CommentsDto> GetComments(Guid id);
+
         IEnumerable<ProductDto> GetWishlist(Guid id);
 
         ProductDto GetProduct(Guid id);

@@ -12,14 +12,11 @@ namespace DataAccess.Write
         }
 
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Product> Products { get; set; }
-
         public DbSet<User> Users { get; set; }
-
         public DbSet<Recommendations> Recommendations { get; set; }
-
         public DbSet<Wishlist> Wishlist { get; set; }
+        public DbSet<Comments> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +25,7 @@ namespace DataAccess.Write
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationsConfiguration());
             modelBuilder.ApplyConfiguration(new WishlistConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentsConfiguration());
         }
     }
 }

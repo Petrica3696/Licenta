@@ -34,6 +34,18 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
             return queryBuilder.BuildQuery();
         }
 
+        public string BuildGetCommentsQuery(Guid id)
+        {
+            var queryBuilder = new SelectQueryBuilder();
+
+            queryBuilder.SelectFromTable("Comments");
+            queryBuilder.AddWhere("ProductId", Comparison.Equals, id.ToString());
+            queryBuilder.AddOrderBy("PostDate", Sorting.Descending);
+            queryBuilder.BuildQuery();
+
+            return queryBuilder.BuildQuery();
+        }
+
         public string BuildGetWishlistQuery(Guid id)
         {
             var queryBuilder = new SelectQueryBuilder();

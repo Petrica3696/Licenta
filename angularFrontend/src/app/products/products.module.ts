@@ -26,6 +26,7 @@ import { DatePipe } from '@angular/common';
 import { SearchPipe } from './_pipes/search.pipe';
 import { OrderByPipe } from './_pipes/order-by.pipe';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { CommentaryComponent } from './commentary/commentary.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MyProductDetailsComponent,
     SearchPipe,
     OrderByPipe,
-    WishlistComponent
+    WishlistComponent,
+    CommentaryComponent
   ],
   imports: [
     CommonModule,

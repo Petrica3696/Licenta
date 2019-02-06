@@ -28,6 +28,14 @@ namespace Service.Write.Controllers
             return NoContent();
         }
 
+        //create comment
+        [HttpPost("submit-comment")]
+        public IActionResult CreateComment([FromBody] CommentDto commentDto)
+        {
+            _productLogic.CreateComment(commentDto);
+            return NoContent();
+        }
+
         //edit product informations
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute] Guid id, [FromBody] UpdateProductDto productDto)

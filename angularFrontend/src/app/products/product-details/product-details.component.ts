@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ProductService } from '../../_services/product.service';
 
-import { Product, User } from 'src/app/_models';
+import { Product, User, Comment } from 'src/app/_models';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { ProductBid } from 'src/app/_models/productBid';
 import { UserService } from 'src/app/_services';
@@ -25,6 +25,8 @@ export class ProductDetailsComponent implements OnInit {
   userDetails: User;
   sellerDetails: User = new User;
   lastMinute: Date = new Date();
+  commentInfo: Comment = new Comment;
+  comments: Comment[] = [];
 
   constructor(
     private productService: ProductService,
@@ -32,6 +34,8 @@ export class ProductDetailsComponent implements OnInit {
     public toastr: ToastrManager,
     private userService: UserService, private changeDetectorRef: ChangeDetectorRef) { }
 
+  inputComment: string;
+  inputDescriptionFormControl = new FormControl('', [Validators.nullValidator]);
   ratingFormControl = new FormControl('', [Validators.required, Validators.min(1), Validators.max(10)])
   inputRating: number = 0;
 
@@ -41,12 +45,18 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(
       product => {
         this.product = product;
+
+        //get seller details
         this.userService.getByUsername(this.product.username).subscribe(
           sellerDetails => {
             this.sellerDetails = sellerDetails;
-            console.log("sellerDetails: ", sellerDetails);
             this.changeDetectorRef.detectChanges();
           }
+        );
+
+        //get comments for this specific product
+        this.productService.getComments(product.id).subscribe(
+          comments => {this.comments = comments; console.log(comments); console.log("length: ", comments.length)}
         );
       });
 
@@ -78,14 +88,12 @@ export class ProductDetailsComponent implements OnInit {
 
         this.lastMinute = new Date();
         this.lastMinute.setMinutes(this.lastMinute.getMinutes() + 1);
-        console.log(this.lastMinute, ' ', this.product.deadline);
         if (this.lastMinute > this.product.deadline) {
           this.productBid.deadline = new Date();
           this.productBid.deadline.setMinutes(this.productBid.deadline.getMinutes() + 1);
           this.product.deadline = this.lastMinute;
 
           this.productBid.deadline.setHours(this.productBid.deadline.getHours() + 2);
-          console.log(this.productBid.deadline, ' ', this.product.deadline);
         }
 
         this.productService.bidProduct(this.product.id, this.productBid).then(result => {
@@ -123,6 +131,33 @@ export class ProductDetailsComponent implements OnInit {
       this.userService.getByUsername(this.product.username).subscribe(sellerDetails => { this.sellerDetails = sellerDetails; });
     }).catch(err => {
       this.toastr.errorToastr('', "Rate error. Please try again later");
+    });
+  }
+
+  onCommentChange(inputComment) {
+    this.inputComment = inputComment;
+  }
+
+  onSubmitComment() {
+    console.log("product id: ", this.product.id);
+    console.log("user id: ", this.userDetails.id);
+    console.log("input comment: ", this.inputComment);
+    console.log("post date: ", new Date());
+    this.commentInfo.productId = this.product.id;
+    this.commentInfo.userId = this.userDetails.id.toString();
+    this.commentInfo.text = this.inputComment;
+
+    this.productService.submitComment(this.commentInfo).then(result => {
+      this.toastr.successToastr('', "Commentary placed!");
+      
+      this.productService.getComments(this.product.id).subscribe(
+        comments => {
+          this.comments = comments;
+          this.inputComment = '';}
+      );
+
+    }).catch(err => {
+      this.toastr.errorToastr('', "There was an issue when trying to place your comment. Please try again later!");
     });
   }
 

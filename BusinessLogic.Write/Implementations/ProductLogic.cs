@@ -20,8 +20,6 @@ namespace BusinessLogic.Write.Implementations
         public void Create(ProductDto product)
         {
 
-
-
             var newProduct = new Product
             {
                 Id = Guid.NewGuid(),
@@ -38,6 +36,21 @@ namespace BusinessLogic.Write.Implementations
             };
 
             _repository.Insert(newProduct);
+            _repository.Save();
+        }
+
+        public void CreateComment(CommentDto commentDto)
+        {
+            var newComment = new Comments
+            {
+                Id = Guid.NewGuid(),
+                ProductId = commentDto.ProductId,
+                UserId = commentDto.UserId,
+                Text = commentDto.Text,
+                PostDate = DateTime.Now
+            };
+
+            _repository.Insert(newComment);
             _repository.Save();
         }
 

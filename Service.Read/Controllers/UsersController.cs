@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.Read;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace Service.Read.Controllers
 {
@@ -29,6 +30,17 @@ namespace Service.Read.Controllers
         public IActionResult GetByUserName([FromRoute] string username)
         {
             var response = _userLogic.GetByUsername(username);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("get-by-id/{id}")]
+        public IActionResult GetById([FromRoute] string id)
+        {
+            var response = _userLogic.GetById(id);
             if (response == null)
             {
                 return NotFound();

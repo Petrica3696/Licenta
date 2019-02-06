@@ -1,0 +1,11 @@
+.comment-card {
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+  margin-top: 10px;
+
+  .name-and-date {
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -57,3 +57,15 @@
     }
   }
 }
+
+.commentary-section {
+  background-color: azure;
+  padding-top: 30px;
+  width: 100%;
+  border-block-start: 1px solid rgb(146, 142, 142);
+
+  .input-comment {
+    margin-bottom: 10px;
+  }
+
+}

@@ -89,3 +89,22 @@
 
   </div>
 </div>
+
+<div class="commentary-section container">
+    <div class="input-comment">
+      <h5><strong>Write a comment:</strong></h5>
+      <form class="example-form">
+        <mat-form-field class="example-full-width col-12">
+          <textarea [formControl]="inputDescriptionFormControl" [ngModel]="inputComment" (ngModelChange)="onCommentChange($event)"
+            matInput>
+        </textarea>
+        </mat-form-field>
+      </form>
+      <button (click)="onSubmitComment()" mat-raised-button color="primary">Comment</button>
+    </div>
+  
+    <div *ngFor="let comment of comments">
+      <app-commentary [comment]="comment"></app-commentary>
+    </div>
+  
+  </div>

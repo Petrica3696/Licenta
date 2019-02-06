@@ -58,5 +58,12 @@ namespace Service.Read.Controllers
             var response = _productLogic.GetByUsername(username);
             return response;
         }
+
+        //GET api/products/comments/productId
+        [HttpGet("comments/{id}")]
+        public IEnumerable<CommentsDto> GetComments([FromRoute] Guid id)
+        {
+            return _productLogic.GetComments(id);
+        }
     }
 }

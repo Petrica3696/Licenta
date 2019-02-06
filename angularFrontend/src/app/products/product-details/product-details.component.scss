@@ -1,12 +1,16 @@
-.product-details{
+.product-details {
   width: 100%;
   display: inline-flex;
   justify-content: space-between;
   padding-top: 20px;
+  padding-bottom: 30px;
 
   .image-box {
     width: 40%;
     background-color: azure;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .product-content-informations {
@@ -47,4 +51,16 @@
     }
 
   }
+}
+
+.commentary-section {
+  background-color: azure;
+  padding-top: 30px;
+  width: 100%;
+  border-block-start: 1px solid rgb(146, 142, 142);
+
+  .input-comment {
+    margin-bottom: 10px;
+  }
+
 }
