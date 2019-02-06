@@ -1,31 +1,38 @@
-<div class="all-products">
+<div class="col-sm-10 offset-sm-1 all-products">
+  <div class="search-and-order">
+    <!-- Search form -->
+    <div class="search-input">
+      <form class="form-inline md-form form-sm col-6">
+        <input [ngModel]="inputSearch" (ngModelChange)="onInputChange($event)" name="inputSearch" type="text"
+          placeholder="Search">
+      </form>
+    </div>
 
-  <div class="filter-bar">
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Category
-        <span class="badge badge-primary badge-pill">14</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Price
-        <span class="badge badge-primary badge-pill">2</span>
-      </li>
-    </ul>
+    <div class="orderby-input">
+      <span class="text">Order by: </span>
+      <mat-form-field id="orderInputDimension">
+        <mat-select [formControl]="dropdownFormControl" [ngModel]="sortOrder" (ngModelChange)="onOrderChange($event)"
+          required>
+          <mat-option *ngFor="let order of orderModel" [value]="order">
+            {{order.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 
   <div class="products-list card-deck">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4" *ngFor="let product of products; let i = index">
+        <div class="col-lg-4" *ngFor="let product of products | searchPipe : inputSearch | orderBy : sortOrder">
           <div *ngIf="user.username == product.username; else showAppProductCard">
             <app-my-product-card [product]="product"></app-my-product-card>
           </div>
           <ng-template #showAppProductCard>
-              <app-product-card [product]="product"></app-product-card>
+            <app-product-card [product]="product"></app-product-card>
           </ng-template>
         </div>
       </div>
-
     </div>
   </div>
 </div>

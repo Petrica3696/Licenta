@@ -9,6 +9,7 @@ import { MatDatepickerModule  } from '@angular/material/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { ModalModule, ButtonsModule, WavesModule, InputsModule, CollapseModule } from 'angular-bootstrap-md';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AllProductsComponent } from './all-products/all-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
@@ -23,6 +24,9 @@ import { MyProductCardComponent } from './my-product-card/my-product-card.compon
 import { MyProductDetailsComponent } from './my-product-details/my-product-details.component';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { DatePipe } from '@angular/common';
+import { SearchPipe } from './_pipes/search.pipe';
+import { OrderByPipe } from './_pipes/order-by.pipe';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 
 @NgModule({
@@ -33,7 +37,10 @@ import { DatePipe } from '@angular/common';
     MyProductsComponent,
     AddProductComponent,
     MyProductCardComponent,
-    MyProductDetailsComponent
+    MyProductDetailsComponent,
+    SearchPipe,
+    OrderByPipe,
+    WishlistComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +60,8 @@ import { DatePipe } from '@angular/common';
     WavesModule,
     CollapseModule,
     ModalModule,
-    InputsModule
+    InputsModule,
+    MatExpansionModule
   ],
   exports: [
     ProductCardComponent
@@ -61,7 +69,7 @@ import { DatePipe } from '@angular/common';
   providers: [
     DataService,
     MatDatepickerModule,
-    DatePipe
+    DatePipe,
   ]
 })
 export class ProductsModule { }

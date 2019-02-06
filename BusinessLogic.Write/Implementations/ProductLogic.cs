@@ -70,6 +70,7 @@ namespace BusinessLogic.Write.Implementations
             _repository.Update(productToUpdate);
             _repository.Save();
         }
+
         public void UpdateBid(Guid id, UpdateBid product)
         {
             Product productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
@@ -85,6 +86,22 @@ namespace BusinessLogic.Write.Implementations
 
             _repository.Update(productToUpdate);
             _repository.Save();
+
+            Wishlist wishlist = _repository.GetByFilter<Wishlist>(p => p.ProductId == id.ToString() && p.UserId == product.WinnerId);
+
+            if(wishlist == null)
+            {
+                var newWish = new Wishlist
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = product.WinnerId,
+                    ProductId = id.ToString()
+                };
+
+                _repository.Insert(newWish);
+                _repository.Save();
+            }
+
 
             Recommendations recommendations = _repository.GetByFilter<Recommendations>(p => p.UserId == product.WinnerId && p.CategoryId == productToUpdate.CategoryId);
 

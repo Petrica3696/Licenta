@@ -13,7 +13,6 @@ export class NavbarComponent implements OnInit {
   activateMyProd: string;
   activateAddProd: string;
   activateMyAuct: string;
-  activateCateg: string;
 
 
   constructor(private router: Router) { }
@@ -27,7 +26,6 @@ export class NavbarComponent implements OnInit {
     this.activateMyProd = "";
     this.activateAddProd = "";
     this.activateMyAuct  ="";
-    this.activateCateg = "";
     this.router.navigate(['']);
   }
 
@@ -37,7 +35,6 @@ export class NavbarComponent implements OnInit {
     this.activateMyProd = "";
     this.activateAddProd = "";
     this.activateMyAuct  ="";
-    this.activateCateg = "";
     this.router.navigate(['/all-products']);
   }
 
@@ -47,7 +44,6 @@ export class NavbarComponent implements OnInit {
     this.activateMyProd = "active";
     this.activateAddProd = "";
     this.activateMyAuct  ="";
-    this.activateCateg = "";
     this.router.navigate(['/my-products']);
   }
 
@@ -57,7 +53,6 @@ export class NavbarComponent implements OnInit {
     this.activateMyProd = "";
     this.activateAddProd = "active";
     this.activateMyAuct  ="";
-    this.activateCateg = "";
     this.router.navigate(['add-product'])
   }
 
@@ -67,18 +62,7 @@ export class NavbarComponent implements OnInit {
     this.activateMyProd = "";
     this.activateAddProd = "";
     this.activateMyAuct  ="active";
-    this.activateCateg = "";
-    //this.router.navigate([''])
-  }
-
-  onCateg() {
-    this.activateHome = "";
-    this.activateAllProd = "";
-    this.activateMyProd = "";
-    this.activateAddProd = "";
-    this.activateMyAuct  ="";
-    this.activateCateg = "active";
-    //this.router.navigate([''])
+    this.router.navigate(['wishlist'])
   }
 
   onMyAccount() {
@@ -87,7 +71,6 @@ export class NavbarComponent implements OnInit {
     this.activateMyProd = "";
     this.activateAddProd = "";
     this.activateMyAuct  ="";
-    this.activateCateg = "";
     this.router.navigate(['/my-account'])
   }
 }

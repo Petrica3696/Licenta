@@ -26,7 +26,6 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material';
-import { SearchPipe } from './_pipes/search.pipe';
 
 @NgModule({
     imports: [
@@ -58,8 +57,7 @@ import { SearchPipe } from './_pipes/search.pipe';
         LoginComponent,
         NavbarComponent,
         RegisterComponent,
-        MyAccountComponent,
-        SearchPipe
+        MyAccountComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

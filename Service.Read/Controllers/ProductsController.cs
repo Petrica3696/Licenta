@@ -21,10 +21,17 @@ namespace Service.Read.Controllers
         }
 
         // GET api/products
-        [HttpGet]
-        public IEnumerable<ProductDto> GetAll()
+        [HttpGet("otherproducts/{username}")]
+        public IEnumerable<ProductDto> GetAll([FromRoute] string username)
         {
-            return _productLogic.GetAll();
+            return _productLogic.GetAll(username);
+        }
+
+        //GET api/products/wishlist
+        [HttpGet("wishlist/{id}")]
+        public IEnumerable<ProductDto> GetWishlist([FromRoute] Guid id)
+        {
+            return _productLogic.GetWishlist(id);
         }
 
         //GET api/products/recommendations
@@ -51,12 +58,5 @@ namespace Service.Read.Controllers
             var response = _productLogic.GetByUsername(username);
             return response;
         }
-
-        //[HttpGet("{categoryId}")]
-        //public IEnumerable<ProductDto> GetByCategoryId([FromRoute] string categoryId)
-        //{
-        //    var response = _productLogic.GetByCategoryId(categoryId);
-        //    return response;
-        //}
     }
 }

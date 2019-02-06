@@ -10,12 +10,14 @@ import { MyProductsComponent } from './products/my-products/my-products.componen
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { MyProductDetailsComponent } from './products/my-product-details/my-product-details.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { WishlistComponent } from './products/wishlist/wishlist.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'all-products', component: AllProductsComponent, canActivate: [AuthGuard]  },
+    { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]  },
     { path: 'my-products', component: MyProductsComponent, canActivate: [AuthGuard]  },
     { path: 'product-details/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]  },
     { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard]  },

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
 import { User, Product } from '../_models';
@@ -8,38 +8,36 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'app-home-component',
 	templateUrl: 'home.component.html',
-	styleUrls: ['./home.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 	users: User[] = [];
-	userDetails: User;
-	recommendations: Product[] = [];
+	userDetails: User = new User;
+	products: Product[];
+	product: Product;
 
 
 	constructor(
 		private userService: UserService,
 		private productService: ProductService,
 		private userCredentialsService: UserService, 
-		private changeDetectorRef: ChangeDetectorRef,
 		private router: Router
-		) { }
+		) {
+			this.userCredentialsService.getUserCredentials().subscribe(
+				userDetails => {
+					this.userDetails = userDetails;
+					this.productService.getRecommendations(this.userDetails.id.toString()).subscribe(
+						products => {
+							this.products = products;
+							console.log(products);
+						}
+					);
+				}
+			);
+	
+		 }
 
 	ngOnInit() {
-
-		this.userCredentialsService.getUserCredentials().subscribe(
-			userDetails => {
-				this.userDetails = userDetails;
-				this.changeDetectorRef.detectChanges();
-
-				this.productService.getRecommendations(userDetails.id).subscribe(
-					recommendations => {
-						this.recommendations = recommendations;
-						console.log(recommendations);
-					}
-				);
-			}
-		);
 
 	}
 

@@ -10,14 +10,18 @@ import { ProductBid } from '../_models/productBid';
 export class ProductService {
     constructor(private http: HttpClient) { }
 
-    getAll(): Observable<Product[]> {
-        return this.http.get<Product[]>('http://localhost:44800/api/products');
+    getAll(username: string): Observable<Product[]> {
+        return this.http.get<Product[]>('http://localhost:44800/api/products/otherproducts/' + username);
     }
     getProductById(id: string): Observable<Product> {
         return this.http.get<Product>('http://localhost:44800/api/products/' + id);
     }
     getAllMyProducts(username: string): Observable<Product[]> {
         return this.http.get<Product[]>('http://localhost:44800/api/products/my-products/' + username);
+    }
+
+    getWishlistProducts(userId: string): Observable<Product[]> {
+        return this.http.get<Product[]>('http://localhost:44800/api/products/wishlist/' + userId);
     }
 
     getRecommendations(userId: string): Observable<Product[]> {

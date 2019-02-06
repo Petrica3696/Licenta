@@ -11,15 +11,16 @@ import { SortOrder } from 'src/app/_models/sortOrder';
 import { UserService } from 'src/app/_services';
 
 @Component({
-  selector: 'app-all-products',
-  templateUrl: './all-products.component.html',
-  styleUrls: ['./all-products.component.scss']
+  selector: 'app-wishlist',
+  templateUrl: './wishlist.component.html',
+  styleUrls: ['./wishlist.component.scss']
 })
-export class AllProductsComponent implements OnInit {
+export class WishlistComponent implements OnInit {
   products: Product[] = [];
   user: User = JSON.parse(localStorage.getItem("currentUser"));
   inputSearch: string = '';
   sortOrder: SortOrder;
+  userDetails: User;
 
   dropdownFormControl = new FormControl('', [Validators.nullValidator]);
   orderModel: SortOrder[] = [new SortOrder('name', 'asc', 'Name ascending'),
@@ -34,19 +35,17 @@ export class AllProductsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.productService.getAll(this.user.username).pipe(first()).subscribe(products => {
-      this.products = products;
-    });
+    this.userCredentialsService.getUserCredentials().subscribe(
+      userDetails => {
+        this.userDetails = userDetails;
+        this.productService.getWishlistProducts(this.userDetails.id.toString()).pipe(first()).subscribe(products => {
+          this.products = products;
+          console.log("Products: ", products);
+        });
+      }
+    );
 
     this.sortOrder = new SortOrder("name", "asc", "Name ascending");
-    // interval(1000)
-    //   .pipe(
-    //     startWith(0),
-    //     switchMap(() => this.productService.getAll())
-    //   )
-    //   .subscribe(products => {
-    //     this.products = products;
-    //   });
   }
 
   onInputChange(inputSearch) {

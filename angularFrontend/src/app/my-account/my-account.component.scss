@@ -2,10 +2,13 @@
   margin-top: 80px;
   text-align: center;
   .image-section {
-    border: 2px solid green;
+    //border: 2px solid green;
+    display: flex;
+    justify-content: center;
+    align-content: center;
   }
   .informations-section {
-    border: 2px solid blue;
+    //border: 2px solid blue;
     background-color: azure;
 
     .rating-text {

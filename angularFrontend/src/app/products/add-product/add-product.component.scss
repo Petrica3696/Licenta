@@ -43,6 +43,11 @@
 
     .upload-file {
       margin-bottom: 20px;
+      display: flex;
+      
+      #avatar {
+        margin-left: 15px;
+      }
     }
   }
 }
