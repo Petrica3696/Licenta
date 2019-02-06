@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Product, ProductEdit, User } from 'src/app/_models';
-import { DataService } from '../../_services/data.service';
 import { ProductService, UserService } from 'src/app/_services';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { ProductBid } from 'src/app/_models/productBid';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent implements OnInit { 
 
   userDetails: User;
   sellerDetails: User = new User();
@@ -22,12 +21,12 @@ export class ProductCardComponent implements OnInit {
   productQuickBid: ProductBid = new ProductBid;
   currentDate: Date = new Date();
   lastMinute: Date = new Date();
+  cardColor: string = "blue";
 
   @Input() product: Product;
 
-  constructor(private dataService: DataService,
+  constructor(
     private productService: ProductService,
-    private datePipe: DatePipe,
     private userService: UserService,
     private changeDetectorRef: ChangeDetectorRef,
     public toastr: ToastrManager,
@@ -49,7 +48,7 @@ export class ProductCardComponent implements OnInit {
         this.sellerDetails = sellerDetails;
         this.changeDetectorRef.detectChanges();
       }
-    )
+    );
 
     this.product.deadline = new Date(this.product.deadline);
     if (this.product.deadline > this.currentDate) {
@@ -63,7 +62,7 @@ export class ProductCardComponent implements OnInit {
   onQuickBid() {
 
     this.productService.getProductById(this.product.id).subscribe(product => {
-
+      this.currentDate = new Date();
       if (product.finalPrice != this.product.finalPrice) {
         this.product.finalPrice = product.finalPrice;
         this.toastr.errorToastr('', "Somebody aleady place that amount");
@@ -115,7 +114,17 @@ export class ProductCardComponent implements OnInit {
   }
 
   onRefresh() {
-    this.productService.getProductById(this.product.id).subscribe(product => this.product = product);
+    this.productService.getProductById(this.product.id).subscribe(product => {
+      this.currentDate = new Date();
+      if (product.deadline < this.currentDate) {
+        this.toggleButton = true;
+        this.toastr.infoToastr('', "This auction has ended!");
+        return;
+      }
+      else {
+        return;
+      }
+    });
   }
 
   onRatingChange(inputRating) {

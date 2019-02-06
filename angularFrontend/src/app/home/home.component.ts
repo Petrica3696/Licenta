@@ -30,6 +30,10 @@ export class HomeComponent implements OnInit {
 						products => {
 							this.products = products;
 							console.log(products);
+							console.log(products.length);
+							if(products.length == 0) {
+								this.productService.getAll(this.userDetails.id.toString()).subscribe(products => this.products = products);
+							}
 						}
 					);
 				}

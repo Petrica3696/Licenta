@@ -17,7 +17,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { MatNativeDateModule  } from '@angular/material';
 
-import { DataService } from '../_services/data.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { MyProductCardComponent } from './my-product-card/my-product-card.component';
@@ -67,7 +66,6 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     ProductCardComponent
   ],
   providers: [
-    DataService,
     MatDatepickerModule,
     DatePipe,
   ]

@@ -34,7 +34,7 @@ namespace Service.Read.Controllers
             return _productLogic.GetWishlist(id);
         }
 
-        //GET api/products/recommendations
+        //GET api/products/recommendations/UserId
         [HttpGet("recommendations/{id}")]
         public IEnumerable<ProductDto> GetRecommendations([FromRoute] Guid id)
         {

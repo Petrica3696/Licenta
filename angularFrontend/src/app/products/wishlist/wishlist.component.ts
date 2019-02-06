@@ -45,7 +45,7 @@ export class WishlistComponent implements OnInit {
       }
     );
 
-    this.sortOrder = new SortOrder("name", "asc", "Name ascending");
+    this.sortOrder = new SortOrder("deadline", "desc", "Date descending");
   }
 
   onInputChange(inputSearch) {

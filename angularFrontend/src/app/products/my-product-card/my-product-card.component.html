@@ -1,57 +1,173 @@
 <!--Card-->
 <div class="product-card-box">
-  <mdb-card>
-
-    <!--Card image-->
-    <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
-      <mdb-card-img src={{product.imageFile}}></mdb-card-img>
-      <a>
-        <div class="mask rgba-white-slight"></div>
-      </a>
-    </div>
-    <ng-template #noImage>
-      <div class="view overlay waves-light" mdbWavesEffect>
-        <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+  <div *ngIf="product && currentDate<product.deadline; else AuctionFinished">
+    <mdb-card>
+      <!--Card image-->
+      <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+        <mdb-card-img src={{product.imageFile}}></mdb-card-img>
         <a>
           <div class="mask rgba-white-slight"></div>
         </a>
       </div>
+      <ng-template #noImage>
+        <div class="view overlay waves-light" mdbWavesEffect>
+          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+      </ng-template>
+      <!--/.Card image-->
+
+      <!--Button-->
+      <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect (click)="onViewDetails()">
+        <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>Edit product</i>
+      </a>
+
+      <!--Card content-->
+      <mdb-card-body>
+
+        <!--Title-->
+        <div class="centering-content">
+          <mdb-card-title>
+            <h4>{{product.name}}</h4>
+          </mdb-card-title>
+        </div>
+        <hr>
+        <!--Text-->
+        <div class="countdown-section">
+          <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
+            <countdown-timer [end]="product.deadline"></countdown-timer>
+          </p>
+          <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+        </div>
+
+      </mdb-card-body>
+      <!--/.Card content-->
+      <!-- Card footer -->
+      <mdb-card-footer class="mdb-color lighten-3 text-center">
+        <ul class="list-unstyled list-inline font-small mt-3">
+          <li class="list-inline-item pr-2 white-text">
+            <h5>Current price: {{product.finalPrice}}</h5>
+          </li>
+        </ul>
+      </mdb-card-footer>
+      <!-- Card footer -->
+    </mdb-card>
+    <!--/.Card-->
+  </div>
+  <ng-template #AuctionFinished>
+    <div *ngIf="product.finalPrice != 0; else NotSold">
+      <mdb-card style="background-color: green">
+        <!--Card image-->
+        <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+          <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <ng-template #noImage>
+          <div class="view overlay waves-light" mdbWavesEffect>
+            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        </ng-template>
+        <!--/.Card image-->
+
+        <!--Button-->
+        <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect (click)="onViewDetails()">
+          <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>Edit product</i>
+        </a>
+
+        <!--Card content-->
+        <mdb-card-body>
+
+          <!--Title-->
+          <div class="centering-content">
+            <mdb-card-title>
+              <h4>{{product.name}}</h4>
+            </mdb-card-title>
+          </div>
+          <hr>
+          <!--Text-->
+          <div class="countdown-section">
+            <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
+              <countdown-timer [end]="product.deadline"></countdown-timer>
+            </p>
+            <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+          </div>
+
+        </mdb-card-body>
+        <!--/.Card content-->
+        <!-- Card footer -->
+        <mdb-card-footer class="mdb-color lighten-3 text-center">
+          <ul class="list-unstyled list-inline font-small mt-3">
+            <li class="list-inline-item pr-2 white-text">
+              <h5 style="color: green"><strong>Final price: {{product.finalPrice}}</strong></h5>
+            </li>
+          </ul>
+        </mdb-card-footer>
+        <!-- Card footer -->
+      </mdb-card>
+      <!--/.Card-->
+    </div>
+    <ng-template #NotSold>
+      <mdb-card style="background-color: red">
+        <!--Card image-->
+        <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+          <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <ng-template #noImage>
+          <div class="view overlay waves-light" mdbWavesEffect>
+            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        </ng-template>
+        <!--/.Card image-->
+
+        <!--Button-->
+        <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect (click)="onViewDetails()">
+          <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>Edit product</i>
+        </a>
+
+        <!--Card content-->
+        <mdb-card-body>
+
+          <!--Title-->
+          <div class="centering-content">
+            <mdb-card-title>
+              <h4>{{product.name}}</h4>
+            </mdb-card-title>
+          </div>
+          <hr>
+          <!--Text-->
+          <div class="countdown-section">
+            <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
+              <countdown-timer [end]="product.deadline"></countdown-timer>
+            </p>
+            <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+          </div>
+
+        </mdb-card-body>
+        <!--/.Card content-->
+        <!-- Card footer -->
+        <mdb-card-footer class="mdb-color lighten-3 text-center">
+          <ul class="list-unstyled list-inline font-small mt-3">
+            <li class="list-inline-item pr-2 white-text">
+                <h5 style="color: red"><strong>Unsold</strong></h5>
+            </li>
+          </ul>
+        </mdb-card-footer>
+        <!-- Card footer -->
+      </mdb-card>
+      <!--/.Card-->
     </ng-template>
-    <!--/.Card image-->
-
-    <!--Button-->
-    <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect (click)="onViewDetails()">
-      <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>Edit product</i>
-    </a>
-
-    <!--Card content-->
-    <mdb-card-body>
-
-      <!--Title-->
-      <div class="centering-content">
-        <mdb-card-title>
-          <h4>{{product.name}}</h4>
-        </mdb-card-title>
-      </div>
-      <hr>
-      <!--Text-->
-      <div class="countdown-section">
-        <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
-          <countdown-timer [end]="product.deadline"></countdown-timer>
-        </p>
-        <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
-      </div>
-
-    </mdb-card-body>
-    <!--/.Card content-->
-    <!-- Card footer -->
-    <mdb-card-footer class="mdb-color lighten-3 text-center">
-      <ul class="list-unstyled list-inline font-small mt-3">
-        <li class="list-inline-item pr-2 white-text">
-          <h5>Current price: {{product.finalPrice}}</h5></li>
-      </ul>
-    </mdb-card-footer>
-    <!-- Card footer -->
-  </mdb-card>
-  <!--/.Card-->
+  </ng-template>
 </div>

@@ -15,6 +15,7 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
 
             queryBuilder.SelectFromTable("Products");
             queryBuilder.AddWhere("Username", Comparison.NotEquals, username);
+            queryBuilder.AddWhere("Deadline", Comparison.GreaterThan, DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss"));
             queryBuilder.BuildQuery();
 
             return queryBuilder.BuildQuery();
@@ -62,6 +63,7 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
 
             queryBuilder.SelectFromTable("Products");
             queryBuilder.AddWhere("CategoryId", Comparison.Equals, id);
+            queryBuilder.AddWhere("Deadline", Comparison.GreaterThan, DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss"));
             queryBuilder.BuildQuery();
 
 
@@ -73,7 +75,7 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
             var queryBuilder = new SelectQueryBuilder();
 
             queryBuilder.SelectFromTable("Products");
-            queryBuilder.AddWhere("Username", Comparison.Equals, username );
+            queryBuilder.AddWhere("Username", Comparison.Equals, username);
             queryBuilder.BuildQuery();
 
             return queryBuilder.BuildQuery();
@@ -84,6 +86,7 @@ namespace BusinessLogic.Read.Implementations.QueryBuilders
             var queryBuilder = new SelectQueryBuilder();
 
             queryBuilder.SelectFromTable("Products");
+            queryBuilder.AddWhere("Deadline", Comparison.GreaterThan, DateTime.Now.ToString("yyyy'-'MM'-'dd' 'HH':'mm':'ss"));
             queryBuilder.BuildQuery();
 
             return queryBuilder.BuildQuery();
