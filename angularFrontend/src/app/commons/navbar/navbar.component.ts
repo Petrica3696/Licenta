@@ -18,6 +18,11 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.activateHome = "";
+    this.activateAllProd = "";
+    this.activateMyProd = "";
+    this.activateAddProd = "";
+    this.activateMyAuct  ="";
   }
 
   onHome() {
@@ -72,5 +77,13 @@ export class NavbarComponent implements OnInit {
     this.activateAddProd = "";
     this.activateMyAuct  ="";
     this.router.navigate(['/my-account'])
+  }
+  onLogOut() {
+    this.activateHome = "";
+    this.activateAllProd = "";
+    this.activateMyProd = "";
+    this.activateAddProd = "";
+    this.activateMyAuct  ="";
+    this.router.navigate(['/login']);
   }
 }

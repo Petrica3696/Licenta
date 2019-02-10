@@ -33,7 +33,6 @@ export class MyAccountComponent implements OnInit {
     this.userService.getUserCredentials().subscribe(
       userDetails => {
         this.user = userDetails;
-        console.log(this.user.rate);
         this.changeDetectorRef.detectChanges();
       });
   }
