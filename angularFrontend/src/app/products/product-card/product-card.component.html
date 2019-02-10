@@ -1,53 +1,296 @@
 <!--Card-->
 <div class="product-card-box">
-  <mdb-card>
+  <div *ngIf="product.deadline<currentDate; else AuctionInProgress">
+    <div *ngIf="userDetails && product.winnerId==userDetails.id; else AuctionLost">
+      <mdb-card style="background-color: green">
 
-    <!--Card image-->
-    <div class="view overlay waves-light" mdbWavesEffect>
-      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
-      <a>
-        <div class="mask rgba-white-slight"></div>
-      </a>
+        <!--Card image-->
+        <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+          <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <ng-template #noImage>
+          <div class="view overlay waves-light" mdbWavesEffect>
+            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        </ng-template>
+        <!--/.Card image-->
+
+        <mdb-card-body>
+
+          <!--Title-->
+          <mdb-card-title class="product-title">
+            <a (click)="onSeeDetails()">
+              <h3>{{product.name}}</h3>
+            </a>
+          </mdb-card-title>
+
+          <div class="seller-section">
+            <span>Seller: {{product.username}}</span>
+            <div *ngIf="sellerDetails.rate != 0">R: {{sellerDetails.rate | number : '1.2-2'}}</div>
+            <a mdbBtn floating="true" size="sm" gradient="blue" (click)="basicModal.show()" mdbWavesEffect>
+              <span>Rate </span>
+              <mdb-icon fas icon="star"></mdb-icon>
+            </a>
+            <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel">Your rate for {{sellerDetails.username}}</h4>
+                  </div>
+                  <div class="modal-body centering-content">
+                    <form class="example-form">
+                      <span>Rate: </span>
+                      <mat-form-field class="example-full-width" id="rating">
+                        <input [formControl]="ratingFormControl" [ngModel]="inputRating" (ngModelChange)="onRatingChange($event)"
+                          matInput type="number" min="1" max="10">
+                        <mat-error *ngIf="ratingFormControl.hasError('min')">Min rate is <strong>1!</strong></mat-error>
+                        <mat-error *ngIf="ratingFormControl.hasError('max')">Max rate is <strong>10!</strong></mat-error>
+                      </mat-form-field>
+                    </form>
+
+                  </div>
+                  <div class="modal-footer centering-content">
+                    <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light"
+                      aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                    <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light"
+                      (click)="basicModal.hide()" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <!--Text-->
+          <div class="countdown-section">
+            <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
+              <countdown-timer [end]="product.deadline"></countdown-timer>
+            </p>
+            <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+          </div>
+
+        </mdb-card-body>
+        <!--/.Card content-->
+        <!-- Card footer -->
+        <mdb-card-footer class="mdb-color lighten-3 text-center">
+          <ul class="list-unstyled bid-box">
+            <div>
+              <li class="white-text">
+                Current price: {{product.finalPrice}}</li>
+              <li class="button-box">
+                <h5 style="color:green"><strong>You win!</strong></h5>
+              </li>
+            </div>
+          </ul>
+        </mdb-card-footer>
+        <!-- Card footer -->
+      </mdb-card>
+      <!--/.Card-->
     </div>
-    <!--/.Card image-->
+    <ng-template #AuctionLost>
+      <mdb-card style="background-color: red">
 
-    <!--Button-->
-    <a class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3 waves-light" mdbWavesEffect href='product-details/{{product.id}}'>
-      <i class="fa fa-chevron-right pl-1 waves-light" mdbWavesEffect>See details</i>
-    </a>
+        <!--Card image-->
+        <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+          <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+        <ng-template #noImage>
+          <div class="view overlay waves-light" mdbWavesEffect>
+            <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+            <a>
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+        </ng-template>
+        <!--/.Card image-->
 
-    <!--Card content-->
-    <mdb-card-body>
+        <mdb-card-body>
 
-      <!--Title-->
-      <mdb-card-title>
-        <h4>{{product.name}}</h4>
-      </mdb-card-title>
+          <!--Title-->
+          <mdb-card-title class="product-title">
+            <a>
+              <h3>{{product.name}}</h3>
+            </a>
+          </mdb-card-title>
 
-      <hr>
-      <!--Text-->
-      <div>
-        <p class="font-medium grey-dark-text mb-0"><i class="fa fa-clock-o pr-1"></i>
-          <countdown-timer  [end]="product.deadline"></countdown-timer>
-        </p>
-        <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+          <div class="seller-section">
+            <span>Seller: {{product.username}}</span>
+            <div *ngIf="sellerDetails.rate != 0">R: {{sellerDetails.rate | number : '1.2-2'}}</div>
+            <a mdbBtn floating="true" size="sm" gradient="blue" (click)="basicModal.show()" mdbWavesEffect>
+              <span>Rate </span>
+              <mdb-icon fas icon="star"></mdb-icon>
+            </a>
+            <div *ngIf="sellerDetails" mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel">Your rate for {{sellerDetails.username}}</h4>
+                  </div>
+                  <div class="modal-body centering-content">
+                    <form class="example-form">
+                      <span>Rate: </span>
+                      <mat-form-field class="example-full-width" id="rating">
+                        <input [formControl]="ratingFormControl" [ngModel]="inputRating" (ngModelChange)="onRatingChange($event)"
+                          matInput type="number" min="1" max="10">
+                        <mat-error *ngIf="ratingFormControl.hasError('min')">Min rate is <strong>1!</strong></mat-error>
+                        <mat-error *ngIf="ratingFormControl.hasError('max')">Max rate is <strong>10!</strong></mat-error>
+                      </mat-form-field>
+                    </form>
+
+                  </div>
+                  <div class="modal-footer centering-content">
+                    <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light"
+                      aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                    <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light"
+                      (click)="basicModal.hide()" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <!--Text-->
+          <div class="countdown-section">
+            <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
+              <countdown-timer [end]="product.deadline"></countdown-timer>
+            </p>
+            <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+          </div>
+
+        </mdb-card-body>
+        <!--/.Card content-->
+        <!-- Card footer -->
+        <mdb-card-footer class="mdb-color lighten-3 text-center">
+          <ul class="list-unstyled bid-box">
+            <div>
+              <li class="white-text">
+                Current price: {{product.finalPrice}}</li>
+              <li class="button-box">
+                  <h5 style="color:red"><strong>You lose</strong></h5>
+              </li>
+            </div>
+          </ul>
+        </mdb-card-footer>
+        <!-- Card footer -->
+      </mdb-card>
+      <!--/.Card-->
+    </ng-template>
+  </div>
+
+  <ng-template #AuctionInProgress>
+    <mdb-card>
+
+      <!--Card image-->
+      <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+        <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
       </div>
+      <ng-template #noImage>
+        <div class="view overlay waves-light" mdbWavesEffect>
+          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+      </ng-template>
+      <!--/.Card image-->
 
-    </mdb-card-body>
-    <!--/.Card content-->
-    <!-- Card footer -->
-    <mdb-card-footer class="mdb-color lighten-3 text-center">
-      <ul class="list-unstyled bid-box">
-        <div>
-        <li class="white-text"> 
-          Current price: {{product.finalPrice}}</li>
-        <li class="button-box">
-          <button mat-flat-button color="primary" class="white-text quick-bid" (click)="onQuickBid()">Quick bid</button>
-        </li>
-      </div>
-      </ul> 
-    </mdb-card-footer>
-    <!-- Card footer -->
-  </mdb-card>
-  <!--/.Card-->
+      <mdb-card-body>
+
+        <!--Title-->
+        <mdb-card-title class="product-title">
+          <a (click)="onSeeDetails()">
+            <h3>{{product.name}}</h3>
+          </a>
+        </mdb-card-title>
+
+        <div class="seller-section">
+          <span>Seller: {{product.username}}</span>
+          <div *ngIf="sellerDetails.rate != 0">R: {{sellerDetails.rate | number : '1.2-2'}}</div>
+          <a mdbBtn floating="true" size="sm" gradient="blue" (click)="basicModal.show()" mdbWavesEffect>
+            <span>Rate </span>
+            <mdb-icon fas icon="star"></mdb-icon>
+          </a>
+          <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title w-100" id="myModalLabel">Your rate for {{sellerDetails.username}}</h4>
+                </div>
+                <div class="modal-body centering-content">
+                  <form class="example-form">
+                    <span>Rate: </span>
+                    <mat-form-field class="example-full-width" id="rating">
+                      <input [formControl]="ratingFormControl" [ngModel]="inputRating" (ngModelChange)="onRatingChange($event)"
+                        matInput type="number" min="1" max="10">
+                      <mat-error *ngIf="ratingFormControl.hasError('min')">Min rate is <strong>1!</strong></mat-error>
+                      <mat-error *ngIf="ratingFormControl.hasError('max')">Max rate is <strong>10!</strong></mat-error>
+                    </mat-form-field>
+                  </form>
+
+                </div>
+                <div class="modal-footer centering-content">
+                  <button type="button" mdbBtn color="secondary" rounded="true" size="sm" class="waves-light"
+                    aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+                  <button type="button" mdbBtn color="primary" rounded="true" size="sm" class="relative waves-light"
+                    (click)="basicModal.hide()" (click)="onSubmitRate()" [disabled]="disableSave" mdbWavesEffect>Save!</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+        <!--Text-->
+        <div class="countdown-section">
+          <p class="font-medium grey-dark-text mb-0 timer"><i class="fa fa-clock-o pr-1"></i>
+            <countdown-timer [end]="product.deadline"></countdown-timer>
+          </p>
+          <p class="font-small grey-dark-text mb-0">Start price: {{product.startPrice}}</p>
+        </div>
+
+      </mdb-card-body>
+      <!--/.Card content-->
+      <!-- Card footer -->
+      <mdb-card-footer class="mdb-color lighten-3 text-center">
+        <ul class="list-unstyled bid-box">
+          <div>
+            <li class="white-text">
+              Current price: {{product.finalPrice}}</li>
+            <li class="button-box">
+              <button mat-flat-button color="primary" class="white-text quick-bid" (click)="onQuickBid()" [disabled]="toggleButton">Quick
+                bid</button>
+              <button mat-flat-button class="quick-bid" (click)="onRefresh()">Refresh</button>
+            </li>
+          </div>
+        </ul>
+      </mdb-card-footer>
+      <!-- Card footer -->
+    </mdb-card>
+    <!--/.Card-->
+  </ng-template>
 </div>

@@ -1,0 +1,46 @@
+<div class="col-sm-10 offset-sm-1 all-products">
+    <div class="search-and-order">
+      <!-- Search form -->
+      <div class="search-input">
+        <form class="form-inline md-form form-sm col-6">
+          <input [ngModel]="inputSearch" (ngModelChange)="onInputChange($event)" name="inputSearch" type="text"
+            placeholder="Search">
+        </form>
+      </div>
+  
+      <div class="orderby-input">
+        <span class="text">Order by: </span>
+        <mat-form-field id="orderInputDimension">
+          <mat-select [formControl]="dropdownFormControl" [ngModel]="sortOrder" (ngModelChange)="onOrderChange($event)"
+            required>
+            <mat-option *ngFor="let order of orderModel" [value]="order">
+              {{order.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <div class="products-list card-deck">
+      <div *ngIf="products.length != 0; else notFound" class="container">
+        <div class="row">
+          <div class="col-lg-4" *ngFor="let product of products | searchPipe : inputSearch | orderBy : sortOrder">
+            <div *ngIf="user.username == product.username; else showAppProductCard">
+              <app-my-product-card [product]="product"></app-my-product-card>
+            </div>
+            <ng-template #showAppProductCard>
+              <app-product-card [product]="product"></app-product-card>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <ng-template #notFound>
+          <div class="not-found">
+            <div style="display:block">
+              <h1><strong>No products found</strong></h1>
+              <img src="\assets\images\notFound.jpg" height="300" width="300">
+            </div>
+          </div>
+        </ng-template>
+    </div>
+  </div>

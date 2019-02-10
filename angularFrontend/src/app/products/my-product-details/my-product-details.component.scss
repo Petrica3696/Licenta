@@ -38,5 +38,39 @@
       }
     }
 
+    .delete-product {
+      display: flex;
+      justify-content: space-between;
+    }
   }
+}
+.date-time-picker {
+  display: flex;
+  
+  .time-picker {
+    display: flex;
+    margin-left: 20px;
+    justify-content: space-around;
+
+    #hours {
+      width: 50px;
+    }
+    #minutes {
+      margin-left: 20px;
+      width: 50px;
+    }
+  }
+}
+
+.commentary-section {
+  background-color: azure;
+  padding-top: 30px;
+  width: 100%;
+  border-block-start: 1px solid rgb(146, 142, 142);
+  margin-bottom: 30px;
+
+  .input-comment {
+    margin-bottom: 10px;
+  }
+
 }

@@ -1,5 +1,18 @@
 .product-card-box {
   padding-top:20px;
+
+  .centering-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .countdown-section {
+    text-align: center;
+
+    .timer {
+      font-size: 22px;
+    }
+  }
 }
 .card-body {
   padding: 0px;
@@ -13,7 +26,7 @@
   :5px;
 }
 .white-text {
-  margin-right: 3rem;
+  text-align: center;
   
   &.quick-bid {
     border: 1px solid blue;

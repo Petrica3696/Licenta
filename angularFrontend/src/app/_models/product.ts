@@ -9,4 +9,5 @@ export class Product {
   finalPrice: number;
   deadline: Date;
   isSold: boolean;
+  imageFile: string;
 }

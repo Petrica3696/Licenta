@@ -20,9 +20,40 @@ namespace BusinessLogic.Read.Implementations.Logics
             _repository = repository;
         }
 
-        public IEnumerable<ProductDto> GetAll()
+        public IEnumerable<ProductDto> GetAll(string username)
         {
-            var query = _queryBuilder.BuildGetQuery();
+            var query = _queryBuilder.BuildGetQuery(username);
+            return _repository.ExecuteQuery<ProductDto>(query);
+        }
+
+        public IEnumerable<ProductDto> GetRecommendations(Guid id)
+        {
+            var categQuery = _queryBuilder.BuildGetRecommendationsQuery(id);
+
+            if (_repository.ExecuteQuery<ProductDto>(categQuery).Count != 0) {
+
+                var categId = _repository.ExecuteQuery<ProductDto>(categQuery)[0].CategoryId;
+                var query = _queryBuilder.BuildGetByCategoryIdQuery(categId);
+
+                return _repository.ExecuteQuery<ProductDto>(query);
+            }
+            else
+            {
+                var query = _queryBuilder.BuildGetAllProducts();
+                return _repository.ExecuteQuery<ProductDto>(query);
+            }         
+
+        }
+
+        public IEnumerable<CommentsDto> GetComments(Guid id)
+        {
+            var query = _queryBuilder.BuildGetCommentsQuery(id);
+            return _repository.ExecuteQuery<CommentsDto>(query);
+        }
+
+        public IEnumerable<ProductDto> GetWishlist(Guid id)
+        {
+            var query = _queryBuilder.BuildGetWishlistQuery(id);
             return _repository.ExecuteQuery<ProductDto>(query);
         }
 

@@ -8,4 +8,5 @@ export class ProductWrite {
   finalPrice?: number;
   deadline: Date;
   isSold?: boolean;
+  imageFile: string;
 }

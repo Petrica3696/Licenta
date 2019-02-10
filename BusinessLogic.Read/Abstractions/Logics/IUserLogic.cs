@@ -13,6 +13,8 @@ namespace BusinessLogic.Read.Abstractions.Logics
 
         UserDto GetByUsernameAndPassword(string username, string password);
 
+        UserDto GetByUsername(string username);
+
         UserDto Authenticate(string username, string password);
     }
 }

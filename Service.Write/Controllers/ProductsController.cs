@@ -20,6 +20,7 @@ namespace Service.Write.Controllers
             this._productLogic = productLogic;
         }
 
+        //create product
         [HttpPost]
         public IActionResult Create([FromBody] ProductDto productDto)
         {
@@ -27,6 +28,15 @@ namespace Service.Write.Controllers
             return NoContent();
         }
 
+        //create comment
+        [HttpPost("submit-comment")]
+        public IActionResult CreateComment([FromBody] CommentDto commentDto)
+        {
+            _productLogic.CreateComment(commentDto);
+            return NoContent();
+        }
+
+        //edit product informations
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute] Guid id, [FromBody] UpdateProductDto productDto)
         {
@@ -34,11 +44,20 @@ namespace Service.Write.Controllers
             return NoContent();
         }
 
+        //update bid on product
         [HttpPut("update-bid/{id}")]
         public IActionResult UpdateBid([FromRoute] Guid id, [FromBody] UpdateBid productDto)
         {
             _productLogic.UpdateBid(id, productDto);
             return NoContent();
         }
+
+        [HttpDelete("delete-product/{id}")]
+        public IActionResult DeleteProduct([FromRoute] Guid id)
+        {
+            _productLogic.Delete(id);
+            return NoContent();
+        }
+
     }
 }

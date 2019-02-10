@@ -33,21 +33,45 @@
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <input [formControl]="inputPriceFormControl" [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)"
-            matInput>
+            matInput type="number" min="1">
           <mat-error *ngIf="inputPriceFormControl.hasError('required')">Price is <strong>required!</strong></mat-error>
+          <mat-error *ngIf="inputPriceFormControl.hasError('min')">Min price is <strong>1$!</strong></mat-error>
         </mat-form-field>
       </form>
     </div>
 
     <div>
       <h5>Pick the deadline: </h5>
-      <mat-form-field>
-        <input [formControl]="inputDateFormControl" matInput [matDatepicker]="picker" placeholder="Choose a date"
-          [ngModel]="inputDate" (ngModelChange)="onDateChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="inputDateFormControl.hasError('required')">Deadline is <strong>required!</strong></mat-error>
-      </mat-form-field>
+      <div class="date-time-picker">
+
+        <mat-form-field>
+          <input [formControl]="inputDateFormControl" matInput [matDatepicker]="picker" placeholder="Choose a date"
+            [ngModel]="inputDate" (ngModelChange)="onDateChange($event)" [min]="minDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="inputDateFormControl.hasError('required')">Deadline is <strong>required!</strong></mat-error>
+        </mat-form-field>
+
+        <div class="time-picker">
+
+          <mat-form-field id="hours">
+            <input [formControl]="inputHoursFormControl" [ngModel]="inputHours" (ngModelChange)="onHoursChange($event)"
+              matInput type="number" min="0" max="23" placeholder="hour">
+            <mat-error *ngIf="inputHoursFormControl.hasError('required')">Hours <strong>required!</strong></mat-error>
+            <mat-error *ngIf="inputHoursFormControl.hasError('min') || inputHoursFormControl.hasError('max')">Range:
+              <strong>0-23</strong></mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field id="minutes">
+            <input [formControl]="inputMinutesFormControl" [ngModel]="inputMinutes" (ngModelChange)="onMinutesChange($event)"
+              matInput type="number" min="0" max="59" placeholder="mins">
+            <mat-error *ngIf="inputMinutesFormControl.hasError('required')">Minutes <strong>required!</strong></mat-error>
+            <mat-error *ngIf="inputMinutesFormControl.hasError('min') || inputMinutesFormControl.hasError('max')">Range:
+              <strong>0-59</strong></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
 
     <div>
@@ -60,8 +84,13 @@
       </form>
     </div>
 
+    <div class="upload-file">
+      <span><h5>Upload a profile picture: </h5></span>
+      <input type="file" id="avatar" (change)="onFileChanged($event)" #fileInput>
+    </div>
+
     <div>
-      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="buttonValue">Primary</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="buttonValue">Add product</button>
     </div>
 
   </div>

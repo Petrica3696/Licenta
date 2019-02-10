@@ -27,6 +27,9 @@ namespace DataAccess.Write.Abstractions
         void Update<T>(T entity)
             where T : BaseEntity;
 
+        void Delete<T>(T entity)
+            where T : BaseEntity;
+
         void Save();
     }
 }

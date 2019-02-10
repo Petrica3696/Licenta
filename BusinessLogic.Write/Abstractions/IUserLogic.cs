@@ -14,6 +14,8 @@ namespace BusinessLogic.Write.Abstractions
 
         void Update(Guid id, UserDto user);
 
+        void UpdateRate(Guid id, double rate);
+
         void Delete(Guid id);
     }
 }

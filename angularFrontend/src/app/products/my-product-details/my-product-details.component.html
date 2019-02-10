@@ -1,59 +1,141 @@
-<div class="product-details" *ngIf="product && category && categories">
+<div>
+  <div class="product-details" *ngIf="product && category && categories">
 
-  <div class="image-box">
-    <div class="view overlay waves-light" mdbWavesEffect>
-      <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
-      <a>
-        <div class="mask rgba-white-slight"></div>
-      </a>
-    </div>
-  </div>
-
-  <div class="product-content-informations container">
-
-    <div>
-      <h5>Select the category: </h5>
-      <mat-form-field>
-        <mat-select [ngModel]="inputCategory" (ngModelChange)="onCategoryChange($event)" placeholder="{{category.name}}">
-          <mat-option *ngFor="let category of categories" [value]="category.name">
-            {{category.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="image-box">
+      <div class="view overlay waves-light" mdbWavesEffect *ngIf="product.imageFile; else noImage">
+        <mdb-card-img src={{product.imageFile}}></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <ng-template #noImage>
+        <div class="view overlay waves-light" mdbWavesEffect>
+          <mdb-card-img src="https://mdbootstrap.com/img/Photos/Others/food.jpg"></mdb-card-img>
+          <a>
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+      </ng-template>
     </div>
 
-    <div>
-      <h5>Name: </h5>
+    <div class="product-content-informations container">
+
+      <div>
+        <div class="delete-product">
+          <h5>Select the category: </h5>
+          <div>
+
+            <button type="button" mdbBtn color="danger" class="relative waves-light" (click)="basicModal.show()"
+              mdbWavesEffect>Delete product</button>
+
+            <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel">Are you sure you want to delete this product?</h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()"
+                      mdbWavesEffect>No</button>
+                    <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="onDeleteProduct()" mdbWavesEffect>Yes!</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <mat-form-field>
+          <mat-select [ngModel]="inputCategory" (ngModelChange)="onCategoryChange($event)" placeholder="{{category.name}}">
+            <mat-option *ngFor="let category of categories" [value]="category.name">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <h5>Name: </h5>
         <mat-form-field class="example-full-width">
           <input matInput [ngModel]="inputName" (ngModelChange)="onNameChange($event)" placeholder="{{product.name}}">
         </mat-form-field>
-    </div>
+      </div>
 
-    <div>
-      <h5>Start Price: </h5>
+      <div>
+        <h5>Start Price: </h5>
         <mat-form-field class="example-full-width">
-          <input [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)" placeholder="{{product.startPrice}}" matInput type="number">
+          <input [ngModel]="inputPrice" (ngModelChange)="onPriceChange($event)" placeholder="{{product.startPrice}}"
+            matInput type="number">
         </mat-form-field>
-    </div>
+      </div>
 
-    <div>
-      <h5>Pick the deadline: </h5>
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="{{product.deadline}}" [ngModel]="inputDate" (ngModelChange)="onDateChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
+      <div>
+        <h5>Pick the deadline: </h5>
+        <div class="date-time-picker">
 
-    <div>
-      <h5>Write a description: </h5>
-        <mat-form-field class="example-full-width">
+          <mat-form-field>
+            <input [formControl]="inputDateFormControl" matInput [matDatepicker]="picker" placeholder="Choose a date"
+              [ngModel]="inputDate" (ngModelChange)="onDateChange($event)" [min]="minDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="inputDateFormControl.hasError('required')">Deadline is <strong>required!</strong></mat-error>
+          </mat-form-field>
+
+          <div class="time-picker">
+
+            <mat-form-field id="hours">
+              <input [formControl]="inputHoursFormControl" [ngModel]="inputHours" (ngModelChange)="onHoursChange($event)"
+                matInput type="number" min="0" max="23" placeholder="hour">
+              <mat-error *ngIf="inputHoursFormControl.hasError('required')">Hours <strong>required!</strong></mat-error>
+              <mat-error *ngIf="inputHoursFormControl.hasError('min') || inputHoursFormControl.hasError('max')">Range:
+                <strong>0-23</strong></mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field id="minutes">
+              <input [formControl]="inputMinutesFormControl" [ngModel]="inputMinutes" (ngModelChange)="onMinutesChange($event)"
+                matInput type="number" min="0" max="59" placeholder="mins">
+              <mat-error *ngIf="inputMinutesFormControl.hasError('required')">Minutes <strong>required!</strong></mat-error>
+              <mat-error *ngIf="inputMinutesFormControl.hasError('min') || inputMinutesFormControl.hasError('max')">Range:
+                <strong>0-59</strong></mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h5>Write a description: </h5>
+        <mat-form-field class="example-full-width col-8">
           <textarea matInput [ngModel]="inputDescription" (ngModelChange)="onDescriptionChange($event)" placeholder="{{product.description}}"></textarea>
         </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="buttonValue">Submit changes</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="commentary-section container">
+    <div class="input-comment">
+      <h5><strong>Write a comment:</strong></h5>
+      <form class="example-form">
+        <mat-form-field class="example-full-width col-12">
+          <textarea [formControl]="inputDescriptionFormControl" [ngModel]="inputComment" (ngModelChange)="onCommentChange($event)"
+            matInput>
+        </textarea>
+        </mat-form-field>
+      </form>
+      <button (click)="onSubmitComment()" mat-raised-button color="primary">Comment</button>
     </div>
 
-    <div>
-      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="buttonValue">Primary</button>
+    <div *ngFor="let comment of comments">
+      <app-commentary [comment]="comment"></app-commentary>
     </div>
 
   </div>

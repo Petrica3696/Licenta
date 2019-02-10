@@ -1,0 +1,20 @@
+.alert-info {
+  display: flex;
+  border: 2px solid #0c5460;
+  justify-content: center;
+}
+
+.login-box {
+  padding-top: 50px;
+  margin-top: 80px;
+  background-color: azure;
+}
+.full-name {
+  display: inline;
+  #first-name {
+    width: 35%;
+  }
+  #last-name {
+    width: 35%;
+  }
+}

@@ -1,0 +1,45 @@
+<div class="col-sm-6 offset-sm-3 login-box jumbotron">
+  <div class="alert alert-info">
+    <h2>Welcome to E-Auction</h2>
+  </div>
+  <h2>Register</h2>
+  <div>
+    <div class="fullName">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" [formControl]="firstNameFormControl" [ngModel]="inputFirstName" (ngModelChange)="onFirstNameChange($event)"
+          class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" [formControl]="lastNameFormControl" [ngModel]="inputLastName" (ngModelChange)="onLastNameChange($event)"
+          class="form-control" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" [formControl]="usernameFormControl" [ngModel]="inputUsername" (ngModelChange)="onUsernameChange($event)"
+        class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" [formControl]="passwordFormControl" [ngModel]="inputPassword" (ngModelChange)="onPasswordChange($event)"
+        class="form-control" />
+    </div>
+
+    <div class="upload-file">
+      <input type="file" id="avatar" (change)="onFileChanged($event)" #fileInput>
+    </div>
+
+    <div class="form-group">
+      <button [disabled]="registerDisabled" class="btn btn-primary" (click)="onSubmit()">Register</button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+    <div class="register-section">
+      <h6>Do you already have an account?<a (click)="onClick()"><strong style="color:lightseagreen">Click here</strong></a> to login.</h6>
+    </div>
+  </div>
+</div>

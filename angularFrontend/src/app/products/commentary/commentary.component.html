@@ -1,0 +1,20 @@
+<div>
+  <div *ngIf="userDetails && userDetails.username == user.username; else otherUser">
+    <div class="comment-card" style="background-color: rgb(65, 204, 204)">
+      <div class="name-and-date">
+        <h5><strong>{{username}}:</strong></h5>
+        <time datetime="DD MM YYYY">{{comment.postDate | date: 'dd MMM yyyy, HH:mm'}}</time>
+      </div>
+      <p>{{comment.text}}</p>
+    </div>
+  </div>
+  <ng-template #otherUser>
+    <div class="comment-card" style="background-color: rgb(144, 219, 219)">
+      <div class="name-and-date">
+        <h5><strong>{{user.username}}:</strong></h5>
+        <time datetime="DD MM YYYY">{{comment.postDate | date: 'dd MMM yyyy, HH:mm'}}</time>
+      </div>
+      <p>{{comment.text}}</p>
+    </div>
+  </ng-template>
+</div>

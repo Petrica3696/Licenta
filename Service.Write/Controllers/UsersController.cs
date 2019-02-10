@@ -38,5 +38,13 @@ namespace Service.Read.Controllers
 
             return NoContent();
         }
+
+        [HttpPut("rate/{id}")]
+        public IActionResult UpdateRate(Guid id, [FromBody] double rate)
+        {
+            _userLogic.UpdateRate(id, rate);
+
+            return NoContent();
+        }
     }
 }

@@ -1,31 +1,51 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '../_models';
-import { UserService } from '../_services';
+import { User, Product } from '../_models';
+import { UserService, ProductService } from '../_services';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home-component',
-  templateUrl: 'home.component.html',
-  styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'app-home-component',
+	templateUrl: 'home.component.html',
+	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-    users: User[] = [];
-    userDetails: User;
+	users: User[] = [];
+	userDetails: User = new User;
+	products: Product[];
+	product: Product;
 
-    constructor(private userService: UserService, private userCredentialsService: UserService, private changeDetectorRef: ChangeDetectorRef) {}
 
-    ngOnInit() {
-        this.userService.getAll().pipe(first()).subscribe(users => { 
-            this.users = users; 
-        });
-        this.userCredentialsService.getUserCredentials().subscribe(
-            userDetails => {
-                this.userDetails = userDetails;
-                this.changeDetectorRef.detectChanges();
-            }
-        );
-        
-    }
+	constructor(
+		private userService: UserService,
+		private productService: ProductService,
+		private userCredentialsService: UserService, 
+		private router: Router
+		) {
+			this.userCredentialsService.getUserCredentials().subscribe(
+				userDetails => {
+					this.userDetails = userDetails;
+					this.productService.getRecommendations(this.userDetails.id.toString()).subscribe(
+						products => {
+							this.products = products;
+							console.log(products);
+							console.log(products.length);
+							if(products.length == 0) {
+								this.productService.getAll(this.userDetails.id.toString()).subscribe(products => this.products = products);
+							}
+						}
+					);
+				}
+			);
+	
+		 }
+
+	ngOnInit() {
+
+	}
+
+	onClick() {
+		this.router.navigate(['all-products']);
+	}
 }

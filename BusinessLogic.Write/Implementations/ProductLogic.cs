@@ -20,8 +20,6 @@ namespace BusinessLogic.Write.Implementations
         public void Create(ProductDto product)
         {
 
-
-
             var newProduct = new Product
             {
                 Id = Guid.NewGuid(),
@@ -33,16 +31,40 @@ namespace BusinessLogic.Write.Implementations
                 StartPrice = product.StartPrice,
                 FinalPrice = null,
                 Deadline = product.Deadline,
-                IsSold = false
+                IsSold = false,
+                ImageFile = product.ImageFile
             };
 
             _repository.Insert(newProduct);
             _repository.Save();
         }
 
+        public void CreateComment(CommentDto commentDto)
+        {
+            var newComment = new Comments
+            {
+                Id = Guid.NewGuid(),
+                ProductId = commentDto.ProductId,
+                UserId = commentDto.UserId,
+                Text = commentDto.Text,
+                PostDate = DateTime.Now
+            };
+
+            _repository.Insert(newComment);
+            _repository.Save();
+        }
+
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            Product productToDelete = _repository.GetByFilter<Product>(p => p.Id == id);
+
+            if(productToDelete == null)
+            {
+                return;
+            }
+
+            _repository.Delete(productToDelete);
+            _repository.Save();
         }
 
         public Product GetByFilter(string name)
@@ -69,6 +91,7 @@ namespace BusinessLogic.Write.Implementations
             _repository.Update(productToUpdate);
             _repository.Save();
         }
+
         public void UpdateBid(Guid id, UpdateBid product)
         {
             Product productToUpdate = _repository.GetByFilter<Product>(p => p.Id == id);
@@ -80,9 +103,51 @@ namespace BusinessLogic.Write.Implementations
 
             productToUpdate.FinalPrice = product.FinalPrice;
             productToUpdate.WinnerId = product.WinnerId;
+            if(product.Deadline >= DateTime.Today) { productToUpdate.Deadline = product.Deadline; }
 
             _repository.Update(productToUpdate);
             _repository.Save();
+
+            Wishlist wishlist = _repository.GetByFilter<Wishlist>(p => p.ProductId == id.ToString() && p.UserId == product.WinnerId);
+
+            if(wishlist == null)
+            {
+                var newWish = new Wishlist
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = product.WinnerId,
+                    ProductId = id.ToString()
+                };
+
+                _repository.Insert(newWish);
+                _repository.Save();
+            }
+
+
+            Recommendations recommendations = _repository.GetByFilter<Recommendations>(p => p.UserId == product.WinnerId && p.CategoryId == productToUpdate.CategoryId);
+
+            if(recommendations == null)
+            {
+                var newBid = new Recommendations
+                {
+                    Id = Guid.NewGuid(),
+                    CategoryId = productToUpdate.CategoryId,
+                    UserId = product.WinnerId,
+                    Bids = 0
+                };
+
+                _repository.Insert(newBid);
+                _repository.Save();
+            }
+            else
+            {
+                recommendations.Bids++;
+
+                _repository.Update(recommendations);
+                _repository.Save();
+            }
+
+            
         }
     }
 }

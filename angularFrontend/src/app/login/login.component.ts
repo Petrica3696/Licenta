@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
-        this.submitted = true;
+        this.submitted = true; 
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
@@ -59,5 +59,9 @@ export class LoginComponent implements OnInit {
                     this.error = error;
                     this.loading = false;
                 });
+    }
+
+    onClick() {
+        this.router.navigate(['/register']);
     }
 }
