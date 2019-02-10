@@ -37,6 +37,7 @@ export class MyProductDetailsComponent implements OnInit {
 
   minDate = new Date();
   enableTimer: boolean = true;
+  toggleDelete: boolean = true;
 
   inputComment: string;
   inputDescriptionFormControl = new FormControl('', [Validators.nullValidator]);
@@ -80,6 +81,10 @@ export class MyProductDetailsComponent implements OnInit {
     this.categoryService.getAll().subscribe(categories => this.categories = categories);
 
     this.minDate.setDate(this.minDate.getDate());
+  }
+
+  onDeleteProduct() {
+    this.productService.deleteProduct(this.product.id).subscribe( product => {this.router.navigate(['/my-products']);});
   }
 
   onCategoryChange(inputCategory) {

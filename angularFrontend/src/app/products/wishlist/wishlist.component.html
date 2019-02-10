@@ -22,7 +22,7 @@
     </div>
   
     <div class="products-list card-deck">
-      <div class="container">
+      <div *ngIf="products.length != 0; else notFound" class="container">
         <div class="row">
           <div class="col-lg-4" *ngFor="let product of products | searchPipe : inputSearch | orderBy : sortOrder">
             <div *ngIf="user.username == product.username; else showAppProductCard">
@@ -34,5 +34,13 @@
           </div>
         </div>
       </div>
+      <ng-template #notFound>
+          <div class="not-found">
+            <div style="display:block">
+              <h1><strong>No products found</strong></h1>
+              <img src="\assets\images\notFound.jpg" height="300" width="300">
+            </div>
+          </div>
+        </ng-template>
     </div>
   </div>

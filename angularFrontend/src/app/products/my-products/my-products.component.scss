@@ -6,6 +6,14 @@
     background-color: azure;
     display: flex;
 
+    .not-found {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
   }
 
   .search-and-order {

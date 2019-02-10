@@ -33,6 +33,7 @@
     "lodash": "^4.17.11",
     "ng6-toastr-notifications": "^1.0.4",
     "ngx-countdown-timer": "^0.1.9",
+    "ngx-loading": "^3.0.1",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.4",
     "rxjs": "~6.3.3",

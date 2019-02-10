@@ -52,5 +52,12 @@ namespace Service.Write.Controllers
             return NoContent();
         }
 
+        [HttpDelete("delete-product/{id}")]
+        public IActionResult DeleteProduct([FromRoute] Guid id)
+        {
+            _productLogic.Delete(id);
+            return NoContent();
+        }
+
     }
 }

@@ -45,7 +45,7 @@
                     <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
                       <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title w-100" id="myModalLabel">Rating</h4>
+                    <h4 class="modal-title w-100" id="myModalLabel">Your rate for {{sellerDetails.username}}</h4>
                   </div>
                   <div class="modal-body centering-content">
                     <form class="example-form">
@@ -133,7 +133,7 @@
               <span>Rate </span>
               <mdb-icon fas icon="star"></mdb-icon>
             </a>
-            <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+            <div *ngIf="sellerDetails" mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
               aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
@@ -141,7 +141,7 @@
                     <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
                       <span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title w-100" id="myModalLabel">Rating</h4>
+                    <h4 class="modal-title w-100" id="myModalLabel">Your rate for {{sellerDetails.username}}</h4>
                   </div>
                   <div class="modal-body centering-content">
                     <form class="example-form">
@@ -239,7 +239,7 @@
                   <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
                     <span aria-hidden="true">×</span>
                   </button>
-                  <h4 class="modal-title w-100" id="myModalLabel">Rating</h4>
+                  <h4 class="modal-title w-100" id="myModalLabel">Your rate for {{sellerDetails.username}}</h4>
                 </div>
                 <div class="modal-body centering-content">
                   <form class="example-form">

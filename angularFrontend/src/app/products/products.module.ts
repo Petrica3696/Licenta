@@ -27,6 +27,7 @@ import { SearchPipe } from './_pipes/search.pipe';
 import { OrderByPipe } from './_pipes/order-by.pipe';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CommentaryComponent } from './commentary/commentary.component';
+import { NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -62,7 +63,9 @@ import { CommentaryComponent } from './commentary/commentary.component';
     CollapseModule,
     ModalModule,
     InputsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxLoadingModule.forRoot({})
+
   ],
   exports: [
     ProductCardComponent

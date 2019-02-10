@@ -6,6 +6,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatOptionModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material';
+import { NgxLoadingModule } from 'ngx-loading';
 
 import { ProductsModule } from './products/products.module';
 import { CarouselModule, ModalModule, ButtonsModule, WavesModule, InputsModule, IconsModule, CollapseModule } from 'angular-bootstrap-md';
@@ -49,7 +50,9 @@ import { MatFormFieldModule } from '@angular/material';
         ButtonsModule,
         InputsModule,
         CollapseModule,
-        IconsModule
+        IconsModule,
+        NgxLoadingModule.forRoot({})
+
     ],
     declarations: [
         AppComponent,

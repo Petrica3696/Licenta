@@ -56,7 +56,15 @@ namespace BusinessLogic.Write.Implementations
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            Product productToDelete = _repository.GetByFilter<Product>(p => p.Id == id);
+
+            if(productToDelete == null)
+            {
+                return;
+            }
+
+            _repository.Delete(productToDelete);
+            _repository.Save();
         }
 
         public Product GetByFilter(string name)

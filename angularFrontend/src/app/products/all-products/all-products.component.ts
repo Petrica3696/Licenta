@@ -36,17 +36,10 @@ export class AllProductsComponent implements OnInit {
 
     this.productService.getAll(this.user.username).pipe(first()).subscribe(products => {
       this.products = products;
+      console.log(products.length);
     });
 
     this.sortOrder = new SortOrder("name", "asc", "Name ascending");
-    // interval(1000)
-    //   .pipe(
-    //     startWith(0),
-    //     switchMap(() => this.productService.getAll())
-    //   )
-    //   .subscribe(products => {
-    //     this.products = products;
-    //   });
   }
 
   onInputChange(inputSearch) {

@@ -31,7 +31,7 @@ export class MyProductsComponent implements OnInit {
   ngOnInit() {
     this.username = JSON.parse(localStorage.getItem("currentUser")).username;
     this.productService.getAllMyProducts(this.username).subscribe(products => this.myProducts = products);
-    this.sortOrder = new SortOrder("name", "asc", "Name ascending");
+    this.sortOrder = new SortOrder("deadline", "desc", "Deadline descending");
   }
 
   onInputChange(inputSearch) {

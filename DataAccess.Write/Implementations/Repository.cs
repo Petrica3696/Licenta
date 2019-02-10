@@ -60,6 +60,12 @@ namespace DataAccess.Write.Implementations
             _context.Set<T>().Update(entity);
         }
 
+        public void Delete<T>(T entity)
+            where T : BaseEntity
+        {
+            _context.Remove(entity);
+        }
+
         public void Save()
         {
             _context.SaveChanges();

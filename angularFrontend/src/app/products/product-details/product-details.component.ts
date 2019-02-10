@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '../../_services/product.service';
 
@@ -19,6 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   productId: string;
   product: Product;
   buttonToggle: boolean = true;
+  disableInput: boolean = false;
   disableSave: boolean = true;
   placedBid: number;
   productBid: ProductBid = new ProductBid;
@@ -32,7 +33,8 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductService,
     private route: ActivatedRoute,
     public toastr: ToastrManager,
-    private userService: UserService, private changeDetectorRef: ChangeDetectorRef) { }
+    private router: Router,
+    private userService: UserService) { }
 
   inputComment: string;
   inputDescriptionFormControl = new FormControl('', [Validators.nullValidator]);
@@ -45,25 +47,26 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.getProductById(this.productId).subscribe(
       product => {
         this.product = product;
-
+        if (new Date(this.product.deadline) <= new Date()) {
+          this.disableInput = true;
+          this.buttonToggle = true;
+        }
         //get seller details
         this.userService.getByUsername(this.product.username).subscribe(
           sellerDetails => {
             this.sellerDetails = sellerDetails;
-            this.changeDetectorRef.detectChanges();
           }
         );
 
         //get comments for this specific product
         this.productService.getComments(product.id).subscribe(
-          comments => {this.comments = comments; console.log(comments); console.log("length: ", comments.length)}
+          comments => { this.comments = comments; console.log(comments); console.log("length: ", comments.length) }
         );
       });
 
     this.userService.getUserCredentials().subscribe(
       userDetails => {
         this.userDetails = userDetails;
-        this.changeDetectorRef.detectChanges();
       }
     );
   }
@@ -80,6 +83,20 @@ export class ProductDetailsComponent implements OnInit {
   onSubmit() {
     this.productService.getProductById(this.productId).subscribe(product => {
       this.product = product;
+      if (new Date(this.product.deadline) <= new Date()) {
+        this.disableInput = true;
+        this.buttonToggle = true;
+
+        if(this.userDetails.id.toString() != this.product.winnerId) {
+          this.router.navigate(['/wishlist']);
+          this.toastr.infoToastr('', "Unfortunately, you lose this auction!");
+        }
+        else {
+          this.toastr.successToastr('', "Congratulations! You won this auction!");
+        }
+
+        return;
+      }
       if (this.product.finalPrice < this.placedBid) {
         this.buttonToggle = false;
         this.productBid.finalPrice = this.placedBid;
@@ -112,7 +129,23 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onRefresh() {
-    this.productService.getProductById(this.product.id).subscribe(product => this.product = product);
+    this.productService.getProductById(this.product.id).subscribe(product => {
+      this.product = product;
+      if (new Date(this.product.deadline) <= new Date()) {
+        this.disableInput = true;
+        this.buttonToggle = true;
+
+        if(this.userDetails.id.toString() != this.product.winnerId) {
+          this.router.navigate(['/wishlist']);
+          this.toastr.infoToastr('', "Unfortunately, you lose this auction!");
+        }
+        else {
+          this.toastr.successToastr('', "Congratulations! You won this auction!");
+        }
+
+        return;
+      }
+    });
   }
 
   onRatingChange(inputRating) {
@@ -139,21 +172,18 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onSubmitComment() {
-    console.log("product id: ", this.product.id);
-    console.log("user id: ", this.userDetails.id);
-    console.log("input comment: ", this.inputComment);
-    console.log("post date: ", new Date());
     this.commentInfo.productId = this.product.id;
     this.commentInfo.userId = this.userDetails.id.toString();
     this.commentInfo.text = this.inputComment;
 
     this.productService.submitComment(this.commentInfo).then(result => {
       this.toastr.successToastr('', "Commentary placed!");
-      
+
       this.productService.getComments(this.product.id).subscribe(
         comments => {
           this.comments = comments;
-          this.inputComment = '';}
+          this.inputComment = '';
+        }
       );
 
     }).catch(err => {

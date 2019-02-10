@@ -37,7 +37,7 @@ export class ProductCardComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUserCredentials().subscribe(
-      userDetails => {
+      userDetails => { 
         this.userDetails = userDetails;
         this.changeDetectorRef.detectChanges();
       }
